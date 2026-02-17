@@ -414,7 +414,10 @@ img {
     flex-wrap: wrap;
 }
 
+
 .tag {
+    display: inline-block;
+    /* Ensure transforms work */
     background-color: var(--accent-light);
     color: var(--accent-color);
     padding: 0.5rem 1rem;
@@ -423,6 +426,15 @@ img {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.tag:hover {
+    transform: translateY(-3px);
+    background-color: var(--accent-color);
+    color: var(--white);
+    box-shadow: 0 5px 15px rgba(13, 148, 136, 0.2);
 }
 
 /* Education Section */
