@@ -902,11 +902,11 @@ footer {
         margin-right: auto;
     }
 
-    .hero-visual {
-        display: flex;
-        height: auto;
-        margin-top: 2rem;
-        justify-content: center;
+    .about-image {
+        display: block;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
     }
 
     .profile-frame {
