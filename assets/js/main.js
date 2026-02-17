@@ -122,4 +122,97 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Authorship & Easter Eggs ---
+    console.log(
+        "%c Designed & Developed by Amey Thakur %c \nhttps://github.com/amey-thakur",
+        "color: #0d9488; background: #ccfbf1; font-size: 16px; padding: 10px; border-radius: 5px; font-family: 'Inter', sans-serif; border: 2px solid #0d9488;",
+        "color: #2c3e50; font-size: 12px;"
+    );
+    console.log("%c Psst! Click the 'dot' in the logo for a behind-the-scenes surprise. 🎬", "color: #ff007f; font-style: italic;");
+
+    // Easter Egg 1: Aaysha's Vibe (Clicking "Aaysha Ali")
+    const logoText = document.querySelector('.logo');
+    if (logoText) {
+        logoText.addEventListener('click', (e) => {
+            if (e.target.classList.contains('dot')) return; // Let the dot handle its own click
+            e.preventDefault();
+            triggerAayshaEffect();
+        });
+    }
+
+    // Easter Egg 2: Amey's Cinematic Vibe (Clicking the ".")
+    const logoDot = document.querySelector('.dot');
+    if (logoDot) {
+        logoDot.style.cursor = 'pointer'; // Make it look clickable
+        logoDot.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            triggerAmeyEffect();
+        });
+    }
+
+    function triggerAayshaEffect() {
+        // Burst of Medical & Tech Icons
+        const icons = ['💊', '🧬', '🔬', '💻', '🧪', '🩸', '🏥'];
+        for (let i = 0; i < 15; i++) {
+            createFloatingIcon(icons[Math.floor(Math.random() * icons.length)]);
+        }
+    }
+
+    function createFloatingIcon(icon) {
+        const el = document.createElement('div');
+        el.innerText = icon;
+        el.style.position = 'fixed';
+        el.style.left = Math.random() * window.innerWidth + 'px';
+        el.style.bottom = '-50px';
+        el.style.fontSize = (Math.random() * 20 + 20) + 'px';
+        el.style.zIndex = '9999';
+        el.style.pointerEvents = 'none';
+        el.style.transition = 'transform 2s ease-out, opacity 2s ease-out';
+
+        document.body.appendChild(el);
+
+        setTimeout(() => {
+            el.style.transform = `translateY(-${window.innerHeight}px) rotate(${Math.random() * 360}deg)`;
+            el.style.opacity = '0';
+        }, 50);
+
+        setTimeout(() => {
+            el.remove();
+        }, 2000);
+    }
+
+    function triggerAmeyEffect() {
+        // Cinematic Matrix/Code Overlay
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.background = 'rgba(0, 0, 0, 0.9)';
+        overlay.style.zIndex = '10000';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.color = '#0f0';
+        overlay.style.fontFamily = 'monospace';
+        overlay.style.fontSize = '2rem';
+        overlay.style.flexDirection = 'column';
+        overlay.innerHTML = `
+            <div class="matrix-text">SYSTEM OVERRIDE: INITIATED</div>
+            <div class="matrix-sub">Developer Mode: Active</div>
+            <div style="font-size: 1rem; color: #fff; margin-top: 20px;">Designed & Developed by Amey Thakur</div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        // Simple typing effect or glitch could go here, but let's keep it pristine
+        setTimeout(() => {
+            overlay.style.transition = 'opacity 1s ease';
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.remove(), 1000);
+        }, 3000);
+    }
+
 });
