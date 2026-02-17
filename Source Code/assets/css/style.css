@@ -964,6 +964,26 @@ footer {
         gap: 3rem;
     }
 
+    /* Force 2x2 Grid for Mobile Badges */
+    .vibe-tags {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+        justify-items: center;
+        margin: 1.5rem auto 0;
+        max-width: 100%;
+    }
+
+    .tag {
+        width: 100%;
+        text-align: center;
+        font-size: 0.85rem;
+        /* Slightly smaller for mobile fit */
+        padding: 0.4rem 0.2rem;
+        white-space: nowrap;
+        box-sizing: border-box;
+    }
+
     .cta-group {
         display: flex;
         flex-direction: column;
