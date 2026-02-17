@@ -7,6 +7,31 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Music Control
+    const musicBtn = document.getElementById('music-btn');
+    const bgMusic = document.getElementById('bg-music');
+    const musicIcon = musicBtn.querySelector('i');
+
+    // Set initial volume
+    bgMusic.volume = 0.4;
+
+    musicBtn.addEventListener('click', () => {
+        if (bgMusic.paused) {
+            bgMusic.play().then(() => {
+                musicBtn.classList.add('playing');
+                musicIcon.classList.remove('fa-music');
+                musicIcon.classList.add('fa-pause');
+            }).catch(error => {
+                console.log("Audio play failed:", error);
+            });
+        } else {
+            bgMusic.pause();
+            musicBtn.classList.remove('playing');
+            musicIcon.classList.remove('fa-pause');
+            musicIcon.classList.add('fa-music');
+        }
+    });
+
     // --- Navigation & Mobile Menu ---
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
