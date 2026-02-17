@@ -306,4 +306,63 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
+
+    // --- PWA Handling ---
+    let deferredPrompt;
+    const pwaBtn = document.getElementById('pwa-install-btn');
+    const pwaToast = document.getElementById('pwa-toast');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent default browser prompt
+        e.preventDefault();
+        deferredPrompt = e;
+        // Show our custom install button
+        if (pwaBtn) pwaBtn.style.display = 'flex';
+    });
+
+    if (pwaBtn) {
+        pwaBtn.addEventListener('click', (e) => {
+            pwaBtn.style.display = 'none';
+            // Trigger the actual prompt
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Install accepted');
+                        showPwaToast("Thank you for installing Aaysha's Portfolio! 🌟");
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
+    }
+
+    window.addEventListener('appinstalled', (evt) => {
+        console.log('App installed');
+        showPwaToast("App installed successfully! Welcome aboard. 🚀");
+    });
+
+    function showPwaToast(message) {
+        if (!pwaToast) return;
+        pwaToast.textContent = message;
+        pwaToast.classList.add('show');
+        setTimeout(() => {
+            pwaToast.classList.remove('show');
+        }, 3000);
+    }
+
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js') // Ensure correct path
+                .then(registration => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                })
+                .catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+        });
+    }
+
 });
+
