@@ -1,3 +1,10 @@
+/**
+ * Author: Amey Thakur
+ * Date: 2026-02-17
+ * License: MIT
+ * Description: Service Worker for PWA offline capabilities and asset caching.
+ */
+
 const CACHE_NAME = 'aaysha-portfolio-v1';
 const ASSETS_TO_CACHE = [
     './',
