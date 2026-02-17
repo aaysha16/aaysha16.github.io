@@ -240,24 +240,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function triggerAayshaEffect() {
         // "The Aaysha Flow" - Ambient & Non-intrusive
 
-        // 1. Play "Blissful" Sound
-        // User requested: "peaceful musical soothing peaceful sound for animation not this high pitch"
-        // We use a deep, resonant, ambient texture.
-        // Source: A reliable "Magic/Fantasy" chime or "Meditation" bell.
-        // This is a direct raw link to a peaceful "Harp" or "Soft Pad" sound.
-        const audioUrl = 'https://www.soundjay.com/misc/sounds/magic-chime-01.mp3';
-        // Alternative if that's too high: 'https://www.soundjay.com/misc/sounds/wind-chime-1.mp3' (User might have heard this one as high pitch)
-        // Let's try a lower pitched "Dreamy" sound.
-        // https://cdn.pixabay.com/audio/2022/03/09/audio_jingle_tinkle_glass_04.mp3 - No.
-
-        // I will use the "SecuPi" chime again? No user said silence.
-        // Let's use a standard "Success" sound that is soft.
-        // "Relaxed Harmony": 
-        const peacefulUrl = 'https://raw.githubusercontent.com/maykbrito/libs/main/sounds/positive.mp3'; // A known soft positive sound.
-
-        const sound = new Audio(peacefulUrl);
-        sound.volume = 0.5;
-        sound.play().catch(e => console.error("Audio blocked:", e));
+        // 1. Play "Blissful" Sound - DIRECT SYNTHESIS (Tibetan Bowl / Low Chime)
+        // User requested: "peaceful musical soothing peaceful sound... not this high pitch"
+        // We generate a low frequency, rich harmonic tone (Singing Bowl style)
+        playSingingBowl();
 
         // 2. Generate Flowing Particles
         // We want a stream, so we'll stagger their creation over a few seconds
@@ -276,7 +262,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Removed the Web Audio API synthesis function as it was rejected.
+    // Custom Web Audio API Synthesizer: "The Singing Bowl"
+    function playSingingBowl() {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+
+            const ctx = new AudioContext();
+
+            // CRITICAL: Resume context for mobile/autoplay policies
+            if (ctx.state === 'suspended') {
+                ctx.resume();
+            }
+
+            const now = ctx.currentTime;
+
+            // Fundamental Frequency: 174.61 Hz (F3 - often associated with healing/earth)
+            // Tuning for "Perfect Peaceful" tone
+            const fundamental = 174.61;
+
+            const harmonics = [
+                { freq: 1.0, gain: 0.5, decay: 8.0 },  // Root (Longest sustain) -> ends with animation
+                { freq: 1.5, gain: 0.2, decay: 6.0 },  // Perfect Fifth (Grounding)
+                { freq: 2.0, gain: 0.15, decay: 5.0 }, // Octave (Clarity)
+                { freq: 3.0, gain: 0.05, decay: 4.0 }, // Octave + Fifth (Shimmer)
+                { freq: 5.2, gain: 0.02, decay: 3.0 }  // Metallic touch
+            ];
+
+            const masterGain = ctx.createGain();
+            masterGain.connect(ctx.destination);
+            masterGain.gain.setValueAtTime(0.0, now);
+            masterGain.gain.linearRampToValueAtTime(0.5, now + 1.0); // Gentle 1s fade in
+            masterGain.gain.exponentialRampToValueAtTime(0.001, now + 8.0); // smooth fade out matching 8s animation
+
+            harmonics.forEach(h => {
+                const osc = ctx.createOscillator();
+                const nodeGain = ctx.createGain();
+
+                osc.frequency.value = fundamental * h.freq;
+                osc.type = 'sine'; // Pure sine for "Peaceful" quality without harshness
+
+                // Individual Harmonic Envelope
+                nodeGain.gain.setValueAtTime(0, now);
+                nodeGain.gain.linearRampToValueAtTime(h.gain, now + 0.2);
+                nodeGain.gain.exponentialRampToValueAtTime(0.001, now + h.decay);
+
+                osc.connect(nodeGain);
+                nodeGain.connect(masterGain);
+
+                osc.start(now);
+                osc.stop(now + 8.1); // Stop slightly after fade out
+            });
+
+        } catch (e) {
+            console.error("Audio synth error:", e);
+        }
+    }
 
     function createFlowParticle(forceName = false) {
         const icons = ['💊', '🧬', '🔬', '💻', '🧪', '🩸', '🏥', '🥼', '🩺', '✨', '⭐', '💫', '🌿', '🍂'];
