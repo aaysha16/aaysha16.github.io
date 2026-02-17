@@ -375,7 +375,7 @@ img {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    border: 10px solid var(--accent-light);
+    border: 15px solid var(--accent-light);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
