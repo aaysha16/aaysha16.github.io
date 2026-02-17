@@ -167,6 +167,18 @@ img {
 
 .dot {
     color: var(--accent-color);
+    position: relative;
+    display: inline-block;
+}
+
+.dot::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    z-index: 10;
 }
 
 .nav-links {
