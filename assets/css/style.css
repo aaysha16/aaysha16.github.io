@@ -907,6 +907,11 @@ footer {
         display: none;
     }
 
+    .scroll-down {
+        bottom: 1rem;
+        transform: translateX(-50%) scale(0.8);
+    }
+
     .about-image {
         display: block;
         width: 100%;
