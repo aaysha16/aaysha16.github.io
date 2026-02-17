@@ -13,6 +13,13 @@ I thrive in environments that require deep critical thinking, keen observation, 
 
 ---
 
+## Connect
+- LinkedIn: [Aaysha Ali](https://linkedin.com/in/aayshaali)
+- ORCID: [0009-0005-5832-6542](https://orcid.org/0009-0005-5832-6542)
+- Email: aliaaysha27@gmail.com
+
+---
+
 ## Credits
 Designed & Developed by [Amey Thakur](https://github.com/amey-thakur)
 
