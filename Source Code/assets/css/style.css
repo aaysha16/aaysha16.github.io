@@ -1205,13 +1205,12 @@ footer {
 
 /* 
  * ==========================================
- * Print Layout Configuration (Symmetric Perfection)
+ * Print Layout Configuration (User Refined)
  * ==========================================
- * - Strategy: "Architectural Symmetry".
- * - Enforces balanced grids and alignment.
- * - Skills: 3 Columns (User Requested).
- * - Research: 2 Columns (Symmetric).
- * - Interests: 3 Columns (Symmetric).
+ * - Hero Badges: 2x2 Grid.
+ * - Research: Horizontal Card with fixed Icon.
+ * - Interests: Perfectly Centered.
+ * - Contact: Clickable/Visible Links.
  */
 @media print {
     @page {
@@ -1241,8 +1240,7 @@ footer {
         color: #222;
         font-family: 'Inter', sans-serif;
         font-size: 10.5pt;
-        /* Precisely legible */
-        line-height: 1.6;
+        line-height: 1.5;
         width: 100%;
         -webkit-font-smoothing: antialiased;
     }
@@ -1260,14 +1258,15 @@ footer {
     footer,
     .floating-icon,
     iframe,
-    .img-overlay {
+    .img-overlay,
+    .cta-group {
         display: none !important;
     }
 
-    /* 3. Section Layout - Symmetrical Spacing */
+    /* 3. Section Layout */
     .section {
         padding: 0 !important;
-        margin-bottom: 3rem !important;
+        margin-bottom: 2.5rem !important;
         page-break-inside: avoid;
         display: block !important;
         width: 100%;
@@ -1280,23 +1279,20 @@ footer {
         margin: 0 !important;
     }
 
-    /* 4. Hero Section - Centered Symmetry */
+    /* 4. Hero Section */
     .hero-section {
         height: auto !important;
         display: block !important;
-        padding: 2rem 0 3rem 0 !important;
+        padding: 2rem 0 2rem 0 !important;
         background: radial-gradient(circle at 50% 50%, #effcf9 0%, transparent 70%) !important;
-        /* Centered Gradient */
         border-bottom: 3px solid #0d9488;
         margin-bottom: 3rem;
         text-align: center;
-        /* Enforce Symmetry */
     }
 
     .hero-content {
         display: flex !important;
         flex-direction: column;
-        /* Stack for symmetry */
         align-items: center;
         width: 100%;
     }
@@ -1307,7 +1303,7 @@ footer {
     }
 
     .hero-text h1 {
-        font-size: 42pt !important;
+        font-size: 36pt !important;
         color: #0d9488 !important;
         font-family: 'Playfair Display', serif;
         margin: 0 0 1rem 0;
@@ -1320,34 +1316,30 @@ footer {
         color: #115e59 !important;
         text-transform: uppercase;
         letter-spacing: 4px;
-        /* Wide tracking for elegance */
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
 
     .hero-text .description {
-        font-size: 12pt;
+        font-size: 11pt;
         color: #555;
         max-width: 80%;
         margin: 0 auto;
-        line-height: 1.6;
+        line-height: 1.5;
     }
 
     .hero-visual {
         display: none !important;
     }
 
-    /* Hidden to perfect centering symmetry */
-
-    /* 5. Typography & Headings - Centered & Decorated */
+    /* 5. Typography */
     h2.section-title {
-        font-size: 22pt !important;
+        font-size: 20pt !important;
         color: #1f2937 !important;
         font-family: 'Playfair Display', serif;
         text-align: center;
-        /* Center all headers */
         border-bottom: 2px solid #0d9488;
-        padding-bottom: 1rem;
-        margin-bottom: 2.5rem;
+        padding-bottom: 0.5rem;
+        margin-bottom: 2rem;
         display: block;
         width: 100%;
     }
@@ -1356,19 +1348,18 @@ footer {
         display: none;
     }
 
-    /* 6. Layouts: About (Symmetric Split) */
+    /* 6. Layouts: About (Symmetric w/ 2x2 Badges) */
     .about-grid {
         display: flex !important;
         flex-direction: row;
         gap: 3rem;
         align-items: center;
-        /* Center vertically */
         justify-content: center;
     }
 
     .about-image {
         display: block !important;
-        width: 180px;
+        width: 160px;
         flex-shrink: 0;
         margin: 0 auto;
     }
@@ -1376,8 +1367,8 @@ footer {
     .img-wrapper {
         border: 4px solid #ccfbf1 !important;
         border-radius: 50%;
-        width: 180px;
-        height: 180px;
+        width: 160px;
+        height: 160px;
         overflow: hidden;
         margin: 0 auto;
     }
@@ -1390,14 +1381,19 @@ footer {
 
     .about-text {
         text-align: justify;
-        /* Clean blocks */
         flex: 1;
     }
 
+    /* BADGES: 2x2 Grid */
     .vibe-tags {
-        justify-content: center;
-        gap: 0.5rem;
-        margin-top: 1.5rem;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        /* 2 columns */
+        gap: 0.8rem;
+        margin: 1.5rem auto 0 auto;
+        max-width: 350px;
+        /* Constrain width */
+        justify-items: center;
     }
 
     .tag {
@@ -1405,11 +1401,15 @@ footer {
         color: #0f766e !important;
         border: 1px solid #0d9488;
         font-size: 9pt;
-        padding: 0.3rem 0.8rem;
+        padding: 0.4rem 0.8rem;
         border-radius: 50px;
+        white-space: nowrap;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
     }
 
-    /* 7. Layouts: Education (Centered Timeline) */
+    /* 7. Education */
     .timeline {
         margin: 0 auto !important;
         max-width: 90%;
@@ -1421,7 +1421,7 @@ footer {
     }
 
     .timeline-item {
-        margin-bottom: 2rem !important;
+        margin-bottom: 1.5rem !important;
         padding-left: 2.5rem;
         page-break-inside: avoid;
     }
@@ -1457,12 +1457,11 @@ footer {
         color: #0d9488 !important;
     }
 
-    /* 8. Layouts: Research (Symmetric 2-Column Grid) */
+    /* 8. Research: Horizontal Card Layout */
     .research-grid {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr;
-        /* Symmetric Split */
-        gap: 1.5rem;
+        display: block !important;
+        /* One card per row */
+        width: 100%;
     }
 
     .card-research {
@@ -1470,29 +1469,54 @@ footer {
         border-radius: 8px;
         page-break-inside: avoid;
         background: #fff !important;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        /* Equal heights */
+        display: flex !important;
+        /* Horizontal Flex */
+        flex-direction: row !important;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
     }
 
     .card-header {
         background: #f0fdfa !important;
         color: #0f766e !important;
-        padding: 1rem;
-        border-bottom: 1px solid #e5e7eb;
+        padding: 1.5rem;
+        border-bottom: none;
+        /* Removed split */
+        border-right: 1px solid #e5e7eb;
+        width: 30%;
+        /* Fixed width for header part */
         text-align: center;
-        /* Center header text */
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    /* Microscope Icon: Fixed & Non-overlapping */
+    .card-header i.icon-bg {
+        position: static !important;
+        /* No absolute positioning */
+        font-size: 2.5rem !important;
+        color: #0d9488 !important;
+        opacity: 1 !important;
+        transform: none !important;
+        margin-bottom: 1rem;
+        display: block;
     }
 
     .card-header h3 {
-        font-size: 12pt;
+        font-size: 13pt;
         margin: 0;
+        line-height: 1.3;
     }
 
     .card-body {
-        padding: 1rem;
+        padding: 1.5rem;
         text-align: left;
+        flex: 1;
     }
 
     .badge {
@@ -1501,16 +1525,15 @@ footer {
         color: #0d9488 !important;
         border: 1px solid #0d9488;
         padding: 0.2rem 0.6rem;
-        font-size: 9pt;
+        font-size: 8pt;
         margin-top: 0.5rem;
     }
 
-    /* 9. Layouts: Capabilities (Skills) (3-Column Symmetric) */
+    /* 9. Skills: 3-Column */
     .skills-wrapper {
         display: grid !important;
         grid-template-columns: repeat(3, 1fr) !important;
-        /* Forced 3-Column */
-        gap: 1.5rem;
+        gap: 1.2rem;
         page-break-inside: avoid;
     }
 
@@ -1520,7 +1543,6 @@ footer {
         border-radius: 8px;
         background: #fff;
         text-align: center;
-        /* Center align for symmetry */
     }
 
     .skill-category h3 {
@@ -1530,30 +1552,31 @@ footer {
         padding-bottom: 0.5rem;
         color: #111;
         display: inline-block;
-        /* Center the underline */
         min-width: 50%;
     }
 
     .skill-cloud {
         justify-content: center;
-        /* Center pills */
     }
 
     .skill-pill {
-        border: 1px solid #ccfbf1 !important;
         background: #f0fdfa !important;
         color: #0f766e !important;
         font-size: 9pt;
         padding: 0.3rem 0.6rem;
         margin: 0.2rem;
+        border: 1px solid #ccfbf1 !important;
     }
 
-    /* 10. Layouts: Interests (Symmetric 3-Column) */
+    /* 10. Interests: Perfectly Centered */
     .interests-grid {
         display: grid !important;
         grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
+        gap: 2rem;
         margin-top: 1rem;
+        justify-items: center;
+        /* Center items horizontally in grid cells */
+        align-items: center;
     }
 
     .interest-item {
@@ -1565,6 +1588,11 @@ footer {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
+        /* Fill cell */
+        height: 100%;
+        /* Uniform height */
+        justify-content: center;
     }
 
     .interest-item i {
@@ -1577,7 +1605,7 @@ footer {
         align-items: center;
         justify-content: center;
         font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.8rem;
         border: 1px solid #ccfbf1;
     }
 
@@ -1587,7 +1615,7 @@ footer {
         color: #111;
     }
 
-    /* 11. Contact (Symmetric Footer) */
+    /* 11. Contact & Socials (Clickable) */
     .contact-section {
         border-top: 4px double #e5e7eb;
         padding-top: 3rem !important;
@@ -1621,18 +1649,24 @@ footer {
         color: #0d9488 !important;
     }
 
+    /* Make Links Clickable & Visible */
     .detail-item a {
-        text-decoration: none;
-        color: #111;
+        text-decoration: underline;
+        /* Visual cue */
+        color: #0d9488 !important;
+        font-weight: 600;
     }
 
+    /* Social Badges */
     .social-links {
         display: flex !important;
+        /* REVEALED */
         justify-content: center;
         gap: 2rem;
         margin-top: 2rem;
         border-top: 1px solid #eee;
         padding-top: 1.5rem;
+        width: 100%;
     }
 
     .social-links a {
@@ -1646,13 +1680,12 @@ footer {
     }
 
     .social-links a i {
-        font-size: 14pt;
-        margin-bottom: 0.3rem;
+        font-size: 18pt;
+        margin-bottom: 0.5rem;
     }
 
-    /* Link Handling */
-    a[href^="http"]:not(.social-links a):after {
+    /* Clean up URLs - relying on clickable links now */
+    a[href^="http"]:after {
         content: "";
-        /* Clean look - remove URL clutter for perfection */
     }
 }
