@@ -1414,35 +1414,39 @@ footer {
         box-sizing: border-box;
     }
 
-    /* 7. Education - Fix Left Cutoff */
+    /* 7. Education - Fix Left Cutoff & Alignment */
     .timeline {
         margin: 0 auto !important;
-        max-width: 85%;
-        /* Reduced width to ensure dots don't hit edge */
-        padding-left: 1rem;
-        /* Extra buffer for dots at left:-9px */
+        max-width: 90%;
+        padding-left: 2rem;
+        /* Increased safe zone */
     }
 
     .timeline::before {
-        left: 1rem;
-        /* Move line in to match padding */
+        left: 2rem;
+        /* Exact align with padding */
         border-left: 2px solid #e5e7eb !important;
     }
 
     .timeline-item {
-        margin-bottom: 1.5rem !important;
-        padding-left: 2.5rem;
+        margin-bottom: 2rem !important;
+        /* Increase gap to help break logic */
+        padding-left: 3rem;
         page-break-inside: avoid;
-        /* Items stay intact, but list can break */
+        /* Keep item intact */
+        break-inside: avoid;
+        position: relative;
     }
 
     .timeline-item::before {
-        left: calc(1rem - 9px);
-        /* Align info dots with line */
+        left: calc(2rem - 9px);
+        /* Perfect center: 2rem line - 9px (half dot width) */
         background: #0d9488 !important;
         border: 3px solid #fff !important;
         width: 18px;
         height: 18px;
+        box-shadow: 0 0 0 1px #0d9488;
+        /* Ensure visibility */
     }
 
     .card-glass {
