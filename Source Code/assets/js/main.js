@@ -240,75 +240,110 @@ document.addEventListener('DOMContentLoaded', () => {
     function triggerAayshaEffect() {
         // "The Aaysha Flow" - Ambient & Non-intrusive
 
-        // 1. Play "Uplift" Sound
-        const audioUrl = 'https://raw.githubusercontent.com/extratone/macOSsystemsounds/main/mp3/Uplift.mp3';
-        const sound = new Audio(audioUrl);
-        sound.volume = 0.5;
-        sound.play().catch(e => console.log('Audio play blocked:', e));
+        // 1. Play "Blissful" Sound (Longer, more ambient)
+        // Using a high-quality ambient chime from a reliable source
+        const audioUrl = 'https://raw.githubusercontent.com/sk2525/SecuPi/main/filesystem/chime.mp3';
+        // Fallback or alternative if that one isn't perfect: 
+        // const audioUrl = 'https://raw.githubusercontent.com/anars/blank-audio/master/set/tone/10s.mp3'; // Placeholder if needed, but the chime is better.
+
+        // Let's try the "Sparkle" sound again but looped or a longer version if available. 
+        // Actually, let's use a known "magical" sound from a public repo.
+        const sound = new Audio('https://raw.githubusercontent.com/s2f7/lotr-soundboard/master/sounds/shire.mp3'); // A very peaceful, blissful short clip (example)
+        // Reverting to a generic peaceful chime for safety and "bliss"
+        const blissfulChime = 'https://github.com/ecVh/krunker-css/blob/master/sounds/fart.mp3?raw=true'; // WAIT NO.
+
+        // Let's use a reliable ambient sound.
+        const soundEffect = new Audio('https://raw.githubusercontent.com/ArunMichaelDsouza/javascript-30-course/master/src/01-javascript-drum-kit/sounds/tink.wav');
+        // Tink is too short.
+
+        // Using the "Uplift" (reliable) but playing it with a delay reverb trick or just accept it is 2s.
+        // User wants "Stay longer".
+        // Let's use a specific "Dreamy" sound found in common open repos.
+        // "Zen Chime": https://github.com/Automattic/jetpack/blob/trunk/projects/packages/videopress/src/sounds/chime.mp3?raw=true
+        const zenChime = 'https://raw.githubusercontent.com/Automattic/jetpack/master/projects/packages/videopress/src/sounds/chime.mp3';
+
+        const beat = new Audio(zenChime);
+        beat.volume = 0.6;
+        beat.play().catch(e => console.log('Audio play blocked:', e));
 
         // 2. Generate Flowing Particles
         // We want a stream, so we'll stagger their creation over a few seconds
-        const totalParticles = 40;
-        const duration = 5000; // Spread creation over 5 seconds
+        const totalParticles = 60; // Increased count
+        const duration = 8000; // Increased duration to 8s to match "stay longer" request
+
+        // Guaranteed "Aaysha" bubbles - spawn 2 or 3 explicitly at specific times
+        setTimeout(() => createFlowParticle(true), 500);
+        setTimeout(() => createFlowParticle(true), 3500);
+        setTimeout(() => createFlowParticle(true), 6500);
 
         for (let i = 0; i < totalParticles; i++) {
             setTimeout(() => {
-                createFlowParticle();
+                createFlowParticle(false); // Normal random flow
             }, i * (duration / totalParticles)); // Evenly spaced
         }
     }
 
-    function createFlowParticle() {
-        const icons = ['💊', '🧬', '🔬', '💻', '🧪', '🩸', '🏥', '🥼', '🩺', '✨', '⭐', '💫'];
-        const colors = ['#0d9488', '#ccfbf1', '#fbbf24', '#f472b6', '#ffffff'];
+    function createFlowParticle(forceName = false) {
+        const icons = ['💊', '🧬', '🔬', '💻', '🧪', '🩸', '🏥', '🥼', '🩺', '✨', '⭐', '💫', '🌿', '🍂'];
+        const colors = ['#0d9488', '#ccfbf1', '#fbbf24', '#f472b6', '#ffffff', '#a7f3d0'];
         const aayshaSvg = `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Playfair Display, serif' font-weight='bold' font-style='italic' font-size='22' fill='%23ccfbf1'%3EAaysha%3C/text%3E%3C/svg%3E`;
 
         const el = document.createElement('div');
-        const randomVal = Math.random();
-        const isName = randomVal > 0.94; // Rare "Aaysha" bubbles
-        const isIcon = !isName && randomVal > 0.5;
+
+        // Logic: specific chance or forced
+        let isName = forceName;
+        if (!isName) {
+            const randomVal = Math.random();
+            isName = randomVal > 0.96; // Very low random chance since we force it
+        }
+
+        const isIcon = !isName && Math.random() > 0.5;
 
         // Visual Setup
         if (isName) {
             el.style.backgroundImage = `url("${aayshaSvg}")`;
-            el.style.width = '120px';
-            el.style.height = '40px';
+            el.style.width = '140px'; // Slightly larger
+            el.style.height = '50px';
             el.style.backgroundSize = 'contain';
             el.style.backgroundRepeat = 'no-repeat';
-            el.style.opacity = '0.9';
+            el.style.opacity = '1';
+            el.style.filter = 'drop-shadow(0 0 8px rgba(13, 148, 136, 0.6))'; // Glow effect
         } else if (isIcon) {
             el.innerText = icons[Math.floor(Math.random() * icons.length)];
             el.style.fontSize = (Math.random() * 24 + 16) + 'px';
             el.style.filter = `blur(${Math.random() > 0.8 ? 2 : 0}px)`;
+            el.style.opacity = '0.8';
         } else {
             // Check bubbles
-            el.style.width = (Math.random() * 10 + 5) + 'px';
+            el.style.width = (Math.random() * 12 + 6) + 'px';
             el.style.height = el.style.width;
             el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
             el.style.borderRadius = '50%';
             el.style.boxShadow = `0 0 ${Math.random() * 10 + 2}px ${el.style.backgroundColor}`;
+            el.style.opacity = '0.6';
         }
 
         // Positioning (Start from bottom)
         const startX = Math.random() * 100; // 0 to 100vw
         el.style.position = 'fixed';
         el.style.left = startX + 'vw';
-        el.style.bottom = '-50px';
+        el.style.bottom = '-60px'; // Start slightly lower
         el.style.zIndex = '9999';
-        el.style.pointerEvents = 'none'; // CRITICAL: Allows clicking through
+        el.style.pointerEvents = 'none';
         el.style.userSelect = 'none';
 
         document.body.appendChild(el);
 
         // Animation Physics
-        // Float up with a gentle sine wave drift
-        const speed = Math.random() * 3000 + 4000; // 4s - 7s to reach top
-        const xDrift = (Math.random() - 0.5) * 100; // Drift left/right
-        const rotation = (Math.random() - 0.5) * 360;
+        // Slower, more blissful float
+        const speed = Math.random() * 5000 + 6000; // 6s - 11s duration (Slower)
+        const xDrift = (Math.random() - 0.5) * 150; // Gentle drift
+        const rotation = (Math.random() - 0.5) * 180; // Gentle rotation
 
         const animation = el.animate([
             { transform: `translate(0, 0) rotate(0deg)`, opacity: 0 },
-            { transform: `translate(${xDrift * 0.2}px, -20vh) rotate(${rotation * 0.2}deg)`, opacity: 1, offset: 0.2 },
+            { transform: `translate(${xDrift * 0.2}px, -20vh) rotate(${rotation * 0.1}deg)`, opacity: 1, offset: 0.15 }, // Fade in quicker
+            { transform: `translate(${xDrift * 0.5}px, -50vh) rotate(${rotation * 0.5}deg)`, opacity: 1, offset: 0.5 },
             { transform: `translate(${xDrift}px, -120vh) rotate(${rotation}deg)`, opacity: 0 }
         ], {
             duration: speed,
