@@ -165,11 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Trigger animation
         setTimeout(() => notification.classList.add('show'), 100);
 
-        // Remove after 3 seconds
+        // Remove after 4.5 seconds
         setTimeout(() => {
             notification.classList.remove('show');
             setTimeout(() => notification.remove(), 300);
-        }, 3000);
+        }, 4500);
     }
 
     // --- Global Keystroke Easter Eggs ---
