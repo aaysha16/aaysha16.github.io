@@ -129,6 +129,25 @@ document.addEventListener('DOMContentLoaded', () => {
     );
     console.log("%c Psst! Click the 'dot' in the logo for a behind-the-scenes surprise. 🎬", "color: #ff007f; font-style: italic;");
 
+    // --- Global Keystroke Easter Eggs ---
+    let inputSequence = '';
+    document.addEventListener('keydown', (e) => {
+        inputSequence += e.key.toLowerCase();
+
+        if (inputSequence.includes('aaysha')) {
+            triggerAayshaEffect();
+            inputSequence = ''; // Reset
+        } else if (inputSequence.includes('amey')) {
+            triggerAmeyEffect();
+            inputSequence = ''; // Reset
+        }
+
+        // Keep buffer small
+        if (inputSequence.length > 20) {
+            inputSequence = inputSequence.slice(-20);
+        }
+    });
+
     // Easter Egg 1: Aaysha's Vibe (Clicking "Aaysha Ali")
     const logoText = document.querySelector('.logo');
     if (logoText) {
