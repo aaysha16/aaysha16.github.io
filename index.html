@@ -44,6 +44,10 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d9488">
 </head>
 
 <body>
@@ -283,6 +287,8 @@
                                     class="fab fa-linkedin-in"></i></a>
                             <a href="https://orcid.org/0009-0005-5832-6542" target="_blank" aria-label="ORCID"><i
                                     class="fab fa-orcid"></i></a>
+                            <a href="https://www.instagram.com/_aaysha16_" target="_blank" aria-label="Instagram"><i
+                                    class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
@@ -317,6 +323,15 @@
             <p>&copy; <span id="year"></span> Aaysha Ali. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- PWA Install Button -->
+    <button id="pwa-install-btn" class="pwa-install-btn">
+        <i class="fas fa-download"></i> Install App
+    </button>
+
+    <!-- PWA Toast Message -->
+    <div id="pwa-toast" class="pwa-toast">Aaysha's Portfolio installed successfully!</div>
+
 
     <!-- Scripts -->
     <script src="assets/js/main.js"></script>
