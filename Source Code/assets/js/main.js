@@ -240,26 +240,24 @@ document.addEventListener('DOMContentLoaded', () => {
     function triggerAayshaEffect() {
         // "The Aaysha Flow" - Ambient & Non-intrusive
 
-        // 1. Play "Blissful" Sound - THE CASCADING ECHO TECHNIQUE
-        // We use a short, reliable "Chime" sound but play it multiple times to create a texture.
-        const audioUrl = 'https://raw.githubusercontent.com/extratone/macOSsystemsounds/main/mp3/Chimes.mp3';
-        // Fallback: 'https://raw.githubusercontent.com/extratone/macOSsystemsounds/main/mp3/Uplift.mp3'
+        // 1. Play "Blissful" Sound
+        // User requested: "peaceful musical soothing peaceful sound for animation not this high pitch"
+        // We use a deep, resonant, ambient texture.
+        // Source: A reliable "Magic/Fantasy" chime or "Meditation" bell.
+        // This is a direct raw link to a peaceful "Harp" or "Soft Pad" sound.
+        const audioUrl = 'https://www.soundjay.com/misc/sounds/magic-chime-01.mp3';
+        // Alternative if that's too high: 'https://www.soundjay.com/misc/sounds/wind-chime-1.mp3' (User might have heard this one as high pitch)
+        // Let's try a lower pitched "Dreamy" sound.
+        // https://cdn.pixabay.com/audio/2022/03/09/audio_jingle_tinkle_glass_04.mp3 - No.
 
-        const playChime = (delay, volume, rate) => {
-            setTimeout(() => {
-                const s = new Audio(audioUrl);
-                s.volume = volume;
-                s.playbackRate = rate; // Pitch shift for variety
-                s.play().catch(e => console.error("Audio blocked:", e));
-            }, delay);
-        };
+        // I will use the "SecuPi" chime again? No user said silence.
+        // Let's use a standard "Success" sound that is soft.
+        // "Relaxed Harmony": 
+        const peacefulUrl = 'https://raw.githubusercontent.com/maykbrito/libs/main/sounds/positive.mp3'; // A known soft positive sound.
 
-        // Create a "Wind Chime" effect by layering the same sound
-        playChime(0, 0.6, 1.0);      // Main chime
-        playChime(800, 0.4, 0.9);   // Echo 1 (Lower pitch)
-        playChime(2000, 0.3, 1.1);  // Echo 2 (Higher pitch)
-        playChime(3500, 0.2, 0.95); // Echo 3 (Fading)
-        playChime(5000, 0.1, 1.0);  // Final faint chime
+        const sound = new Audio(peacefulUrl);
+        sound.volume = 0.5;
+        sound.play().catch(e => console.error("Audio blocked:", e));
 
         // 2. Generate Flowing Particles
         // We want a stream, so we'll stagger their creation over a few seconds
@@ -277,7 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }, i * (duration / totalParticles));
         }
     }
-}
 
     // Removed the Web Audio API synthesis function as it was rejected.
 
@@ -396,60 +393,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- PWA Handling ---
     let deferredPrompt;
-const pwaBtn = document.getElementById('pwa-install-btn');
-const pwaToast = document.getElementById('pwa-toast');
+    const pwaBtn = document.getElementById('pwa-install-btn');
+    const pwaToast = document.getElementById('pwa-toast');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent default browser prompt
-    e.preventDefault();
-    deferredPrompt = e;
-    // Show our custom install button
-    if (pwaBtn) pwaBtn.style.display = 'flex';
-});
-
-if (pwaBtn) {
-    pwaBtn.addEventListener('click', (e) => {
-        pwaBtn.style.display = 'none';
-        // Trigger the actual prompt
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('Install accepted');
-                    showPwaToast("Thank you for installing Aaysha's Portfolio! 🌟");
-                }
-                deferredPrompt = null;
-            });
-        }
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent default browser prompt
+        e.preventDefault();
+        deferredPrompt = e;
+        // Show our custom install button
+        if (pwaBtn) pwaBtn.style.display = 'flex';
     });
-}
 
-window.addEventListener('appinstalled', (evt) => {
-    console.log('App installed');
-    showPwaToast("App installed successfully! Welcome aboard. 🚀");
-});
+    if (pwaBtn) {
+        pwaBtn.addEventListener('click', (e) => {
+            pwaBtn.style.display = 'none';
+            // Trigger the actual prompt
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Install accepted');
+                        showPwaToast("Thank you for installing Aaysha's Portfolio! 🌟");
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
+    }
 
-function showPwaToast(message) {
-    if (!pwaToast) return;
-    pwaToast.textContent = message;
-    pwaToast.classList.add('show');
-    setTimeout(() => {
-        pwaToast.classList.remove('show');
-    }, 3000);
-}
-
-// Register Service Worker
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js') // Ensure correct path
-            .then(registration => {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            })
-            .catch(err => {
-                console.log('ServiceWorker registration failed: ', err);
-            });
+    window.addEventListener('appinstalled', (evt) => {
+        console.log('App installed');
+        showPwaToast("App installed successfully! Welcome aboard. 🚀");
     });
-}
+
+    function showPwaToast(message) {
+        if (!pwaToast) return;
+        pwaToast.textContent = message;
+        pwaToast.classList.add('show');
+        setTimeout(() => {
+            pwaToast.classList.remove('show');
+        }, 3000);
+    }
+
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js') // Ensure correct path
+                .then(registration => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                })
+                .catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+        });
+    }
 
 });
 
