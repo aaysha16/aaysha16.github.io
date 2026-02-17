@@ -1452,29 +1452,34 @@ footer {
     .timeline-item {
         margin-bottom: 3rem !important;
         padding-left: 2.5rem !important;
-        /* Content starts here */
+        padding-bottom: 1rem !important;
+        /* Extra buffer against cutoff */
         page-break-inside: avoid !important;
         break-inside: avoid !important;
         position: relative !important;
         display: block !important;
         overflow: visible !important;
-        /* FORCE VISIBILITY */
         height: auto !important;
     }
 
     .timeline-item::before {
-        /* Dot Positioning Logic:
-           - Item has padding-left: 2.5rem.
-           - We want dot at '2rem' from Timeline edge.
-           - Timeline edge is -2.5rem from Item Content Start.
-           - So Dot needs to be at -0.5rem from Item Content Start.
+        /* Dot Positioning:
+           - Timeline Line is at left: 2rem of .timeline
+           - Timeline Item is a block child, so its border-box left edge aligns with .timeline content-box left edge (which is at 2rem).
+           - So Item's left edge IS the line's position.
+           - We position dot relative to Item. left: 0 places it at the line.
+           - Line is 2px wide. Center is 1px.
+           - Dot is 18px. translateX(-50%) centers it.
+           - margin-left: 1px shifts center to line center.
         */
         content: '' !important;
         position: absolute !important;
-        left: -0.5rem !important;
-        /* -2.5rem (pad) + 2rem (line pos) = -0.5rem */
+        left: 0 !important;
+        margin-left: 1px !important;
+        /* Perfect Center on 2px line */
         transform: translateX(-50%) !important;
-        top: 0.5rem !important;
+        top: 0.6rem !important;
+        /* Optical center with text */
         background: #0d9488 !important;
         border: 3px solid #fff !important;
         width: 18px !important;
