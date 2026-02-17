@@ -19,7 +19,7 @@
     --glass-border: rgba(255, 255, 255, 0.5);
     --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
     --dark-bg: #111827;
-    /* For footer or dark mode elements */
+    /* For footer */
     --white: #ffffff;
 
     /* Typography */
@@ -817,7 +817,8 @@ footer {
 /* Responsive Precision */
 @media (max-width: 992px) {
     .contact-wrapper {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: 3rem;
     }
 
     .hero-text h1 {
