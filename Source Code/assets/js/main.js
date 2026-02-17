@@ -283,11 +283,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const masterGain = ctx.createGain();
             masterGain.connect(ctx.destination);
-            masterGain.gain.setValueAtTime(0, now);
-            masterGain.gain.linearRampToValueAtTime(0.4, now + 0.1); // Soft attack
-            masterGain.gain.exponentialRampToValueAtTime(0.001, now + 8.0); // 8s Decay
 
-            frequencies.forEach(freq => {
+            // ADSR Envelope tailored for "Sustain"
+            masterGain.gain.setValueAtTime(0, now);
+            masterGain.gain.linearRampToValueAtTime(0.4, now + 1.0); // Slow Attack (1s)
+            masterGain.gain.setValueAtTime(0.4, now + 6.0); // Sustain at full volume until 6s
+            masterGain.gain.linearRampToValueAtTime(0.001, now + 9.0); // 3s Release (Total 9s audible)
+
+            frequencies.forEach((freq, i) => {
                 const osc = ctx.createOscillator();
                 const nodeGain = ctx.createGain();
 
@@ -297,27 +300,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 const modGain = ctx.createGain();
                 mod.frequency.value = freq * 2; // Octave harmonic
                 mod.type = 'sine';
-                modGain.gain.value = freq * 0.3; // Modulation depth
+                modGain.gain.value = freq * 0.2; // Softer modulation
 
                 mod.connect(modGain);
                 modGain.connect(osc.frequency);
 
                 // Carrier
-                osc.type = 'sine'; // Sine carrier + FM = Electric Piano texture
+                osc.type = 'sine';
                 osc.frequency.value = freq;
 
-                // Individual Envelope
+                // Individual Envelope (Slightly varied for realism)
                 nodeGain.gain.setValueAtTime(0, now);
-                nodeGain.gain.linearRampToValueAtTime(0.15, now + 0.05); // Initial pluck
-                nodeGain.gain.exponentialRampToValueAtTime(0.001, now + 7.0);
+                nodeGain.gain.linearRampToValueAtTime(0.15, now + 0.1 + (i * 0.05)); // Staggered attack
+                nodeGain.gain.setValueAtTime(0.1, now + 6.0); // Sustain
+                nodeGain.gain.linearRampToValueAtTime(0.001, now + 9.0); // Follow master release
 
                 osc.connect(nodeGain);
                 nodeGain.connect(masterGain);
 
                 mod.start(now);
-                mod.stop(now + 8);
+                mod.stop(now + 9.1);
                 osc.start(now);
-                osc.stop(now + 8.1);
+                osc.stop(now + 9.1);
             });
 
         } catch (e) {
