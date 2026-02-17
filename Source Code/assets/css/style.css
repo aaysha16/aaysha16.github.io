@@ -1414,45 +1414,58 @@ footer {
         box-sizing: border-box;
     }
 
-    /* 7. Education - Fix Left Cutoff & Alignment */
+    /* 7. Education - Precision Alignment & Safety */
     .timeline {
         margin: 0 auto !important;
         max-width: 90%;
-        padding-left: 2rem;
-        /* Increased safe zone */
+        padding-left: 2rem !important;
+        /* Context Start for Items */
+        background: transparent !important;
     }
 
     .timeline::before {
-        left: 2rem;
-        /* Exact align with padding */
+        left: 2rem !important;
+        /* Line at exact context start */
         border-left: 2px solid #e5e7eb !important;
     }
 
     .timeline-item {
-        margin-bottom: 2rem !important;
-        /* Increase gap to help break logic */
-        padding-left: 3rem;
+        margin-bottom: 3rem !important;
+        /* Huge gap to force clean break */
+        padding-left: 2.5rem !important;
+        /* Text offset from line */
         page-break-inside: avoid !important;
-        /* Keep item intact */
         break-inside: avoid !important;
-        position: relative;
+        position: relative !important;
         display: block !important;
-        /* Ensure block layout for breaking */
     }
 
     .timeline-item::before {
-        left: 2rem;
-        /* Anchor exactly on the line */
-        transform: translateX(-50%);
-        /* Universally center dot on that point */
-        margin-left: 1px;
-        /* Account for 2px line width (center is +1px) */
+        /* Dot Positioning */
+        content: '' !important;
+        position: absolute !important;
+        left: 1px !important;
+        /* Center of 2px line (which is at 0 relative to item padding box? NO. Item starts at 2rem. So 0 is line.) */
+        /* Wait, if item is separate block, its 0 is at paddding. Relative to Item Border Box. */
+        /* If Timeline has padding 2rem. Item is inside. Item 0 is Timeline 2rem. */
+        /* Line is Timeline 2rem. So Line is at Item 0. */
+        transform: translateX(-50%) !important;
+        top: 0.5rem !important;
+        /* Visual vertical center adjust */
         background: #0d9488 !important;
         border: 3px solid #fff !important;
-        width: 18px;
-        height: 18px;
-        box-shadow: 0 0 0 1px #0d9488;
-        /* Ensure visibility */
+        width: 18px !important;
+        height: 18px !important;
+        box-shadow: 0 0 0 1px #0d9488 !important;
+        z-index: 5 !important;
+    }
+
+    /* Prevent text cutoff inside card */
+    .card-glass p {
+        widows: 4 !important;
+        orphans: 4 !important;
+        padding-bottom: 0.5rem;
+        /* Internal buffer */
     }
 
     .card-glass {
