@@ -241,12 +241,16 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.style.justifyContent = 'center';
         overlay.style.color = '#0f0';
         overlay.style.fontFamily = 'monospace';
-        overlay.style.fontSize = '2rem';
+        overlay.style.textAlign = 'center';
+        overlay.style.padding = '20px';
+        overlay.style.boxSizing = 'border-box';
         overlay.style.flexDirection = 'column';
+
+        // Responsive font sizes using clamp
         overlay.innerHTML = `
-            <div class="matrix-text">SYSTEM OVERRIDE: INITIATED</div>
-            <div class="matrix-sub">Developer Mode: Active</div>
-            <div style="font-size: 1rem; color: #fff; margin-top: 20px;">Designed & Developed by Amey Thakur</div>
+            <div style="font-size: clamp(1.5rem, 5vw, 3rem); font-weight: bold; margin-bottom: 10px;">SYSTEM OVERRIDE: INITIATED</div>
+            <div style="font-size: clamp(1rem, 4vw, 2rem); margin-bottom: 2rem;">Developer Mode: Active</div>
+            <div style="font-size: clamp(0.8rem, 3vw, 1rem); color: #fff; opacity: 0.8;">Designed & Developed by Amey Thakur</div>
         `;
 
         document.body.appendChild(overlay);
