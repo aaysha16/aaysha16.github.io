@@ -1200,3 +1200,5 @@ footer {
         box-shadow: 0 0 0 0 rgba(13, 148, 136, 0);
     }
 }
+
+/* Cinematic Effects handled via JS Web Animations API for performance */

@@ -238,60 +238,84 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function triggerAayshaEffect() {
-        // Cinematic Burst of Medical & Tech Icons
-        const icons = ['💊', '🧬', '🔬', '💻', '🧪', '🩸', '🏥', '🥼', '🩺', '⚛️'];
+        // "The Aaysha Flow" - Ambient & Non-intrusive
 
-        // Create a backdrop blur momentarily
-        const backdrop = document.createElement('div');
-        Object.assign(backdrop.style, {
-            position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)',
-            zIndex: '9998', pointerEvents: 'none', opacity: 0, transition: 'opacity 1s ease'
-        });
-        document.body.appendChild(backdrop);
+        // 1. Play "Uplift" Sound
+        const audioUrl = 'https://raw.githubusercontent.com/extratone/macOSsystemsounds/main/mp3/Uplift.mp3';
+        const sound = new Audio(audioUrl);
+        sound.volume = 0.5;
+        sound.play().catch(e => console.log('Audio play blocked:', e));
 
-        requestAnimationFrame(() => backdrop.style.opacity = '1');
-        setTimeout(() => {
-            backdrop.style.opacity = '0';
-            setTimeout(() => backdrop.remove(), 1000);
-        }, 5000);
+        // 2. Generate Flowing Particles
+        // We want a stream, so we'll stagger their creation over a few seconds
+        const totalParticles = 40;
+        const duration = 5000; // Spread creation over 5 seconds
 
-        // Generate 60 icons with varied physics
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < totalParticles; i++) {
             setTimeout(() => {
-                createCinematicIcon(icons[Math.floor(Math.random() * icons.length)]);
-            }, i * 50); // Stagger usage
+                createFlowParticle();
+            }, i * (duration / totalParticles)); // Evenly spaced
         }
     }
 
-    function createCinematicIcon(icon) {
-        const el = document.createElement('div');
-        el.innerText = icon;
-        el.style.position = 'fixed';
-        el.style.left = Math.random() * 100 + 'vw';
-        el.style.bottom = '-100px';
-        const size = Math.random() * 30 + 20; // 20px to 50px
-        el.style.fontSize = size + 'px';
-        el.style.zIndex = '9999';
-        el.style.pointerEvents = 'none';
+    function createFlowParticle() {
+        const icons = ['💊', '🧬', '🔬', '💻', '🧪', '🩸', '🏥', '🥼', '🩺', '✨', '⭐', '💫'];
+        const colors = ['#0d9488', '#ccfbf1', '#fbbf24', '#f472b6', '#ffffff'];
+        const aayshaSvg = `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Playfair Display, serif' font-weight='bold' font-style='italic' font-size='22' fill='%23ccfbf1'%3EAaysha%3C/text%3E%3C/svg%3E`;
 
-        // Randomize physics
-        const duration = Math.random() * 3000 + 4000; // 4s to 7s duration
-        el.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity ${duration}ms ease-in`;
-        el.style.opacity = '0.8';
-        el.style.filter = `blur(${Math.random() > 0.7 ? 2 : 0}px)`; // Depth of field effect
+        const el = document.createElement('div');
+        const randomVal = Math.random();
+        const isName = randomVal > 0.94; // Rare "Aaysha" bubbles
+        const isIcon = !isName && randomVal > 0.5;
+
+        // Visual Setup
+        if (isName) {
+            el.style.backgroundImage = `url("${aayshaSvg}")`;
+            el.style.width = '120px';
+            el.style.height = '40px';
+            el.style.backgroundSize = 'contain';
+            el.style.backgroundRepeat = 'no-repeat';
+            el.style.opacity = '0.9';
+        } else if (isIcon) {
+            el.innerText = icons[Math.floor(Math.random() * icons.length)];
+            el.style.fontSize = (Math.random() * 24 + 16) + 'px';
+            el.style.filter = `blur(${Math.random() > 0.8 ? 2 : 0}px)`;
+        } else {
+            // Check bubbles
+            el.style.width = (Math.random() * 10 + 5) + 'px';
+            el.style.height = el.style.width;
+            el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            el.style.borderRadius = '50%';
+            el.style.boxShadow = `0 0 ${Math.random() * 10 + 2}px ${el.style.backgroundColor}`;
+        }
+
+        // Positioning (Start from bottom)
+        const startX = Math.random() * 100; // 0 to 100vw
+        el.style.position = 'fixed';
+        el.style.left = startX + 'vw';
+        el.style.bottom = '-50px';
+        el.style.zIndex = '9999';
+        el.style.pointerEvents = 'none'; // CRITICAL: Allows clicking through
+        el.style.userSelect = 'none';
 
         document.body.appendChild(el);
 
-        requestAnimationFrame(() => {
-            // End state
-            const rotate = (Math.random() - 0.5) * 720; // Rotate up to 360deg either way
-            const xDrift = (Math.random() - 0.5) * 200; // Drift left/right
-            el.style.transform = `translate(${xDrift}px, -${window.innerHeight + 150}px) rotate(${rotate}deg)`;
-            el.style.opacity = '0';
+        // Animation Physics
+        // Float up with a gentle sine wave drift
+        const speed = Math.random() * 3000 + 4000; // 4s - 7s to reach top
+        const xDrift = (Math.random() - 0.5) * 100; // Drift left/right
+        const rotation = (Math.random() - 0.5) * 360;
+
+        const animation = el.animate([
+            { transform: `translate(0, 0) rotate(0deg)`, opacity: 0 },
+            { transform: `translate(${xDrift * 0.2}px, -20vh) rotate(${rotation * 0.2}deg)`, opacity: 1, offset: 0.2 },
+            { transform: `translate(${xDrift}px, -120vh) rotate(${rotation}deg)`, opacity: 0 }
+        ], {
+            duration: speed,
+            easing: 'ease-out'
         });
 
-        setTimeout(() => el.remove(), duration + 100);
+        animation.onfinish = () => el.remove();
     }
 
     function triggerAmeyEffect() {
