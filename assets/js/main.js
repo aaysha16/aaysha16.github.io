@@ -170,65 +170,60 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function triggerAayshaEffect() {
-        // Cinematic "Science meets Artistry" Overlay
-        const overlay = document.createElement('div');
-        Object.assign(overlay.style, {
-            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
-            background: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', zIndex: '10000',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column',
-            opacity: 0, transition: 'opacity 1s ease'
+        // Cinematic Burst of Medical & Tech Icons
+        const icons = ['💊', '🧬', '🔬', '💻', '🧪', '🩸', '🏥', '🥼', '🩺', '⚛️'];
+
+        // Create a backdrop blur momentarily
+        const backdrop = document.createElement('div');
+        Object.assign(backdrop.style, {
+            position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)',
+            zIndex: '9998', pointerEvents: 'none', opacity: 0, transition: 'opacity 1s ease'
         });
+        document.body.appendChild(backdrop);
 
-        overlay.innerHTML = `
-            <div style="font-family: 'Playfair Display', serif; font-size: 4rem; color: #0d9488; font-style: italic; transform: translateY(20px); transition: transform 1.5s ease-out;">Science meets Artistry</div>
-            <div style="position: absolute; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: -1;">
-                ${generateMolecules()}
-            </div>
-        `;
-
-        document.body.appendChild(overlay);
-
-        // Animate in
-        requestAnimationFrame(() => {
-            overlay.style.opacity = '1';
-            overlay.querySelector('div').style.transform = 'translateY(0)';
-        });
-
-        // Rotate molecules
-        const molecules = overlay.querySelectorAll('.molecule');
-        molecules.forEach(mol => {
-            mol.animate([
-                { transform: `translate(0, 0) rotate(0deg)` },
-                { transform: `translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px) rotate(${Math.random() * 360}deg)` }
-            ], {
-                duration: 4000 + Math.random() * 2000,
-                iterations: Infinity,
-                direction: 'alternate',
-                easing: 'ease-in-out'
-            });
-        });
-
-        // Remove after 4 seconds
+        requestAnimationFrame(() => backdrop.style.opacity = '1');
         setTimeout(() => {
-            overlay.style.opacity = '0';
-            setTimeout(() => overlay.remove(), 1000);
-        }, 4000);
+            backdrop.style.opacity = '0';
+            setTimeout(() => backdrop.remove(), 1000);
+        }, 5000);
+
+        // Generate 60 icons with varied physics
+        for (let i = 0; i < 60; i++) {
+            setTimeout(() => {
+                createCinematicIcon(icons[Math.floor(Math.random() * icons.length)]);
+            }, i * 50); // Stagger usage
+        }
     }
 
-    function generateMolecules() {
-        let html = '';
-        for (let i = 0; i < 6; i++) {
-            const size = Math.random() * 100 + 50;
-            const left = Math.random() * 100;
-            const top = Math.random() * 100;
-            html += `<svg class="molecule" width="${size}" height="${size}" viewBox="0 0 100 100" style="position: absolute; left: ${left}%; top: ${top}%; opacity: 0.1; fill: none; stroke: #0d9488; stroke-width: 2;">
-                <polygon points="50 5, 95 27, 95 73, 50 95, 5 73, 5 27" />
-                <line x1="50" y1="50" x2="50" y2="5" />
-                <line x1="50" y1="50" x2="95" y2="73" />
-                <line x1="50" y1="50" x2="5" y2="73" />
-            </svg>`;
-        }
-        return html;
+    function createCinematicIcon(icon) {
+        const el = document.createElement('div');
+        el.innerText = icon;
+        el.style.position = 'fixed';
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.bottom = '-100px';
+        const size = Math.random() * 30 + 20; // 20px to 50px
+        el.style.fontSize = size + 'px';
+        el.style.zIndex = '9999';
+        el.style.pointerEvents = 'none';
+
+        // Randomize physics
+        const duration = Math.random() * 3000 + 4000; // 4s to 7s duration
+        el.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity ${duration}ms ease-in`;
+        el.style.opacity = '0.8';
+        el.style.filter = `blur(${Math.random() > 0.7 ? 2 : 0}px)`; // Depth of field effect
+
+        document.body.appendChild(el);
+
+        requestAnimationFrame(() => {
+            // End state
+            const rotate = (Math.random() - 0.5) * 720; // Rotate up to 360deg either way
+            const xDrift = (Math.random() - 0.5) * 200; // Drift left/right
+            el.style.transform = `translate(${xDrift}px, -${window.innerHeight + 150}px) rotate(${rotate}deg)`;
+            el.style.opacity = '0';
+        });
+
+        setTimeout(() => el.remove(), duration + 100);
     }
 
     function triggerAmeyEffect() {
