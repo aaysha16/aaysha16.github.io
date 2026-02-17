@@ -1,37 +1,20 @@
-# Aaysha Ali | Pharmacy & Informatics Portfolio
+# Aaysha Ali
 
-"Science meets Artistry."
-A cinematic, responsive portfolio showcasing the intersection of Clinical Pharmacy, Medical Writing, and Informatics.
+**"Science meets Artistry."**
 
-## Live Demo
-https://aaysha16.github.io/
+I am a methodical and research-oriented **Bachelor of Pharmacy** undergraduate with a grounded understanding of core pharmaceutical subjects and scientific communication. My journey is defined by a dual passion: the rigorous, evidence-based approach of clinical research and the expansive, interpretative nature of informatics and writing.
 
-## About
-This portfolio represents the professional journey of Aaysha Ali, an aspiring Pharmacist and Researcher. It is designed to reflect her dual passion for rigorous scientific inquiry and creative data interpretation. The site serves as a central hub for her academic achievements, research presentations, and professional aspirations.
+I thrive in environments that require deep critical thinking, keen observation, and the ability to translate complex technical material into clear, impactful insights.
 
-## Key Features
-- Cinematic UI: A pristine, high-end design aesthetic.
-- Interactive Elements: Custom animations and responsive interactions.
-- Fully Responsive: Optimized for all devices.
-- Contact Integration: Functional contact form powered by Formspree.
-- Custom 404 Page: A themed error page.
+---
 
-## Tech Stack
-- HTML5: Semantic architecture.
-- CSS3: Advanced styling with Flexbox, Grid, and Animations.
-- JavaScript (ES6+): Vanilla JS for interactions.
+## Live Portfolio
+[https://aaysha16.github.io/](https://aaysha16.github.io/)
 
-## Local Development
-1. Clone the repository:
-   git clone https://github.com/aaysha16/aaysha16.github.io.git
-2. Open index.html in your browser.
-
-## Connect
-- LinkedIn: https://linkedin.com/in/aayshaali
-- Email: aliaaysha27@gmail.com
+---
 
 ## Credits
-Designed & Developed by Amey Thakur (Cinematic Mode Active)
+Designed & Developed by [Amey Thakur](https://github.com/amey-thakur)
 
 ## License
 MIT License
