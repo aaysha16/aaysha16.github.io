@@ -2,8 +2,7 @@
  * Author: Amey Thakur
  * Date: 2026-02-17
  * License: MIT
- * Description: Main JavaScript for Aaysha Ali's Portfolio.
- * Handles navigation, animations, and form interactions.
+ * Description: Main JavaScript file handling navigation and interactions.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
