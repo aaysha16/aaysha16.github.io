@@ -1432,15 +1432,21 @@ footer {
         margin-bottom: 2rem !important;
         /* Increase gap to help break logic */
         padding-left: 3rem;
-        page-break-inside: avoid;
+        page-break-inside: avoid !important;
         /* Keep item intact */
-        break-inside: avoid;
+        break-inside: avoid !important;
         position: relative;
+        display: block !important;
+        /* Ensure block layout for breaking */
     }
 
     .timeline-item::before {
-        left: calc(2rem - 9px);
-        /* Perfect center: 2rem line - 9px (half dot width) */
+        left: 2rem;
+        /* Anchor exactly on the line */
+        transform: translateX(-50%);
+        /* Universally center dot on that point */
+        margin-left: 1px;
+        /* Account for 2px line width (center is +1px) */
         background: #0d9488 !important;
         border: 3px solid #fff !important;
         width: 18px;
