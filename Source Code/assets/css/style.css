@@ -1267,7 +1267,8 @@ footer {
     .section {
         padding: 0 !important;
         margin-bottom: 2.5rem !important;
-        page-break-inside: avoid;
+        page-break-inside: auto;
+        /* ALLOW break to prevent bottom cutoff */
         display: block !important;
         width: 100%;
     }
@@ -1288,6 +1289,8 @@ footer {
         border-bottom: 3px solid #0d9488;
         margin-bottom: 3rem;
         text-align: center;
+        page-break-inside: avoid;
+        /* Keep hero intact */
     }
 
     .hero-content {
@@ -1342,6 +1345,8 @@ footer {
         margin-bottom: 2rem;
         display: block;
         width: 100%;
+        page-break-after: avoid;
+        /* Keep title with content */
     }
 
     .section-title::after {
@@ -1409,14 +1414,18 @@ footer {
         box-sizing: border-box;
     }
 
-    /* 7. Education */
+    /* 7. Education - Fix Left Cutoff */
     .timeline {
         margin: 0 auto !important;
-        max-width: 90%;
+        max-width: 85%;
+        /* Reduced width to ensure dots don't hit edge */
+        padding-left: 1rem;
+        /* Extra buffer for dots at left:-9px */
     }
 
     .timeline::before {
-        left: 0;
+        left: 1rem;
+        /* Move line in to match padding */
         border-left: 2px solid #e5e7eb !important;
     }
 
@@ -1424,10 +1433,12 @@ footer {
         margin-bottom: 1.5rem !important;
         padding-left: 2.5rem;
         page-break-inside: avoid;
+        /* Items stay intact, but list can break */
     }
 
     .timeline-item::before {
-        left: -9px;
+        left: calc(1rem - 9px);
+        /* Align info dots with line */
         background: #0d9488 !important;
         border: 3px solid #fff !important;
         width: 18px;
