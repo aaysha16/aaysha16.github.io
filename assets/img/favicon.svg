@@ -5,8 +5,7 @@
       <stop offset="100%" style="stop-color:#2c3e50;stop-opacity:1" />
     </linearGradient>
   </defs>
-  <!-- Background removed as per user request to 'remove extra' -->
-  <!-- Using bold serif font for legibility -->
-  <text x="50%" y="30%" dominant-baseline="middle" text-anchor="middle" font-family="serif" font-size="160" fill="url(#grad1)" font-weight="bold">Aaysha</text>
-  <text x="50%" y="70%" dominant-baseline="middle" text-anchor="middle" font-family="serif" font-size="160" fill="url(#grad1)" font-weight="bold">Ali</text>
+  <!-- Reverted to the cleaner 'A' logo on gradient -->
+  <rect width="512" height="512" rx="100" fill="url(#grad1)" />
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="serif" font-size="350" fill="#ffffff" font-weight="bold">A</text>
 </svg>
