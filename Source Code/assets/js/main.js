@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Custom Web Audio API Synthesizer: "The Singing Bowl"
+    // Custom Web Audio API Synthesizer: "The Dream Piano"
     function playSingingBowl() {
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -277,41 +277,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const now = ctx.currentTime;
 
-            // Fundamental Frequency: 174.61 Hz (F3 - often associated with healing/earth)
-            // Tuning for "Perfect Peaceful" tone
-            const fundamental = 174.61;
-
-            const harmonics = [
-                { freq: 1.0, gain: 0.5, decay: 8.0 },  // Root (Longest sustain) -> ends with animation
-                { freq: 1.5, gain: 0.2, decay: 6.0 },  // Perfect Fifth (Grounding)
-                { freq: 2.0, gain: 0.15, decay: 5.0 }, // Octave (Clarity)
-                { freq: 3.0, gain: 0.05, decay: 4.0 }, // Octave + Fifth (Shimmer)
-                { freq: 5.2, gain: 0.02, decay: 3.0 }  // Metallic touch
-            ];
+            // Chord: F Major 9 (Peaceful, dreamy, open)
+            // F3, A3, C4, E4, G4
+            const frequencies = [174.61, 220.00, 261.63, 329.63, 392.00];
 
             const masterGain = ctx.createGain();
             masterGain.connect(ctx.destination);
-            masterGain.gain.setValueAtTime(0.0, now);
-            masterGain.gain.linearRampToValueAtTime(0.5, now + 1.0); // Gentle 1s fade in
-            masterGain.gain.exponentialRampToValueAtTime(0.001, now + 8.0); // smooth fade out matching 8s animation
+            masterGain.gain.setValueAtTime(0, now);
+            masterGain.gain.linearRampToValueAtTime(0.4, now + 0.1); // Soft attack
+            masterGain.gain.exponentialRampToValueAtTime(0.001, now + 8.0); // 8s Decay
 
-            harmonics.forEach(h => {
+            frequencies.forEach(freq => {
                 const osc = ctx.createOscillator();
                 const nodeGain = ctx.createGain();
 
-                osc.frequency.value = fundamental * h.freq;
-                osc.type = 'sine'; // Pure sine for "Peaceful" quality without harshness
+                // FM Synthesis for "Piano-like" tine sound
+                // Modulator
+                const mod = ctx.createOscillator();
+                const modGain = ctx.createGain();
+                mod.frequency.value = freq * 2; // Octave harmonic
+                mod.type = 'sine';
+                modGain.gain.value = freq * 0.3; // Modulation depth
 
-                // Individual Harmonic Envelope
+                mod.connect(modGain);
+                modGain.connect(osc.frequency);
+
+                // Carrier
+                osc.type = 'sine'; // Sine carrier + FM = Electric Piano texture
+                osc.frequency.value = freq;
+
+                // Individual Envelope
                 nodeGain.gain.setValueAtTime(0, now);
-                nodeGain.gain.linearRampToValueAtTime(h.gain, now + 0.2);
-                nodeGain.gain.exponentialRampToValueAtTime(0.001, now + h.decay);
+                nodeGain.gain.linearRampToValueAtTime(0.15, now + 0.05); // Initial pluck
+                nodeGain.gain.exponentialRampToValueAtTime(0.001, now + 7.0);
 
                 osc.connect(nodeGain);
                 nodeGain.connect(masterGain);
 
+                mod.start(now);
+                mod.stop(now + 8);
                 osc.start(now);
-                osc.stop(now + 8.1); // Stop slightly after fade out
+                osc.stop(now + 8.1);
             });
 
         } catch (e) {
