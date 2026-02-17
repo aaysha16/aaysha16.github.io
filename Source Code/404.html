@@ -112,7 +112,7 @@
     <a href="index.html" class="btn btn-primary">Return Home</a>
 
     <script>
-        // Authorship Console Log
+        // Console Authorship Attribution
         console.log(
             "%c Designed & Developed by Amey Thakur %c \nhttps://github.com/amey-thakur",
             "color: #0d9488; background: #ccfbf1; font-size: 16px; padding: 10px; border-radius: 5px; font-family: 'Inter', sans-serif; border: 2px solid #0d9488;",
@@ -120,27 +120,27 @@
         );
         console.log("%c Hint: Try typing 'aaysha' or 'amey' on this page... 🤫", "color: #999; font-style: italic;");
 
-        // Key Sequence Detector
+        // Input Sequence Tracker
         let inputSequence = '';
         document.addEventListener('keydown', (e) => {
             inputSequence += e.key.toLowerCase();
 
             if (inputSequence.includes('aaysha')) {
                 triggerAayshaEffect();
-                inputSequence = ''; // Reset
+                inputSequence = ''; // Reset buffer
             } else if (inputSequence.includes('amey')) {
                 triggerAmeyEffect();
-                inputSequence = ''; // Reset
+                inputSequence = ''; // Reset buffer
             }
 
-            // Keep buffer small
+            // Maintain fixed buffer size
             if (inputSequence.length > 20) {
                 inputSequence = inputSequence.slice(-20);
             }
         });
 
         function triggerAayshaEffect() {
-            // Burst of Medical Icons
+            // Generate Medical Icon Burst
             const icons = ['💊', '🧬', '🔬', '💻', '🧪', '🩸', '🏥', '🥼', '🩺'];
             for (let i = 0; i < 30; i++) {
                 const el = document.createElement('div');
@@ -156,7 +156,7 @@
 
                 document.body.appendChild(el);
 
-                // Animate expansion and fade
+                // Animate expansion and fade out
                 requestAnimationFrame(() => {
                     el.style.transform = 'scale(1) translateY(-100px)';
                     el.style.opacity = '0';
@@ -167,7 +167,7 @@
         }
 
         function triggerAmeyEffect() {
-            // Cinematic Matrix Overlay
+            // Cinematic Overlay Display
             const overlay = document.createElement('div');
             Object.assign(overlay.style, {
                 position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',

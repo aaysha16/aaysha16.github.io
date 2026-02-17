@@ -238,19 +238,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function triggerAayshaEffect() {
-        // "The Aaysha Flow" - Ambient & Non-intrusive
+        // "The Aaysha Flow" - Ambient & Non-intrusive Interaction
 
-        // 1. Play "Blissful" Sound - DIRECT SYNTHESIS (Tibetan Bowl / Low Chime)
-        // User requested: "peaceful musical soothing peaceful sound... not this high pitch"
-        // We generate a low frequency, rich harmonic tone (Singing Bowl style)
+        // 1. Play "Blissful" Sound - Direct Synthesis
+        // Generate a low frequency, rich harmonic tone
         playSingingBowl();
 
         // 2. Generate Flowing Particles
-        // We want a stream, so we'll stagger their creation over a few seconds
+        // Create a stream by staggering particle creation
         const totalParticles = 60;
         const duration = 8000;
 
-        // Guaranteed "Aaysha" bubbles - spawn 2 or 3 explicitly at specific times
+        // Ensure "Aaysha" bubbles appear at specific intervals
         setTimeout(() => createFlowParticle(true), 500);
         setTimeout(() => createFlowParticle(true), 3500);
         setTimeout(() => createFlowParticle(true), 6500);
@@ -270,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const ctx = new AudioContext();
 
-            // CRITICAL: Resume context for mobile/autoplay policies
+            // Resume context for mobile autoplay compliance
             if (ctx.state === 'suspended') {
                 ctx.resume();
             }
@@ -284,23 +283,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const masterGain = ctx.createGain();
             masterGain.connect(ctx.destination);
 
-            // ADSR Envelope tailored for "Sustain"
+            // ADSR Envelope - Natural Piano Decay
+            // Attack: Quick swell
+            // Decay/Release: Long natural fade without artificial sustain
             masterGain.gain.setValueAtTime(0, now);
-            masterGain.gain.linearRampToValueAtTime(0.4, now + 1.0); // Slow Attack (1s)
-            masterGain.gain.setValueAtTime(0.4, now + 6.0); // Sustain at full volume until 6s
-            masterGain.gain.linearRampToValueAtTime(0.001, now + 9.0); // 3s Release (Total 9s audible)
+            masterGain.gain.linearRampToValueAtTime(0.4, now + 0.1); // Attack
+            masterGain.gain.exponentialRampToValueAtTime(0.001, now + 6.0); // Natural 6s Decay
 
             frequencies.forEach((freq, i) => {
                 const osc = ctx.createOscillator();
                 const nodeGain = ctx.createGain();
 
-                // FM Synthesis for "Piano-like" tine sound
-                // Modulator
+                // FM Synthesis for Electric Piano texture
                 const mod = ctx.createOscillator();
                 const modGain = ctx.createGain();
                 mod.frequency.value = freq * 2; // Octave harmonic
                 mod.type = 'sine';
-                modGain.gain.value = freq * 0.2; // Softer modulation
+                modGain.gain.value = freq * 0.2; // Subtle modulation
 
                 mod.connect(modGain);
                 modGain.connect(osc.frequency);
@@ -309,19 +308,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 osc.type = 'sine';
                 osc.frequency.value = freq;
 
-                // Individual Envelope (Slightly varied for realism)
+                // Individual Harmonic Envelope
+                // Slightly staggered attacks for realism
                 nodeGain.gain.setValueAtTime(0, now);
-                nodeGain.gain.linearRampToValueAtTime(0.15, now + 0.1 + (i * 0.05)); // Staggered attack
-                nodeGain.gain.setValueAtTime(0.1, now + 6.0); // Sustain
-                nodeGain.gain.linearRampToValueAtTime(0.001, now + 9.0); // Follow master release
+                nodeGain.gain.linearRampToValueAtTime(0.15, now + 0.05 + (i * 0.02));
+                nodeGain.gain.exponentialRampToValueAtTime(0.001, now + 5.0); // Slightly shorter than master
 
                 osc.connect(nodeGain);
                 nodeGain.connect(masterGain);
 
                 mod.start(now);
-                mod.stop(now + 9.1);
+                mod.stop(now + 6.5);
                 osc.start(now);
-                osc.stop(now + 9.1);
+                osc.stop(now + 6.5);
             });
 
         } catch (e) {
@@ -332,40 +331,36 @@ document.addEventListener('DOMContentLoaded', () => {
     function createFlowParticle(forceName = false) {
         const icons = ['💊', '🧬', '🔬', '💻', '🧪', '🩸', '🏥', '🥼', '🩺', '✨', '⭐', '💫', '🌿', '🍂'];
         const colors = ['#0d9488', '#ccfbf1', '#fbbf24', '#f472b6', '#ffffff', '#a7f3d0'];
-        // Fixed: Removed 'fill' attribute to allow CSS to control it or use default, 
-        // OR better: ensure specific high-contrast fill.
-        // User said "was better before" -> before it was just the SVG.
-        // The issue might be opacity or blending.
-        // I will use a bold, bright fill.
-        const aayshaSvg = `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Playfair Display, serif' font-weight='bold' font-style='italic' font-size='22' fill='%230f766e'%3EAaysha%3C/text%3E%3C/svg%3E`; // Darker teal fill %230f766e
+        // Integrated SVG for the 'Aaysha' name particle
+        const aayshaSvg = `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Playfair Display, serif' font-weight='bold' font-style='italic' font-size='22' fill='%230f766e'%3EAaysha%3C/text%3E%3C/svg%3E`;
 
         const el = document.createElement('div');
 
-        // Logic: specific chance or forced
+        // Probability logic for particle type
         let isName = forceName;
         if (!isName) {
             const randomVal = Math.random();
-            isName = randomVal > 0.96; // Very low random chance since we force it
+            isName = randomVal > 0.96; // Rare chance for natural occurrence
         }
 
         const isIcon = !isName && Math.random() > 0.5;
 
-        // Visual Setup
+        // Visual Configuration
         if (isName) {
             el.style.backgroundImage = `url("${aayshaSvg}")`;
-            el.style.width = '140px'; // Slightly larger
+            el.style.width = '140px';
             el.style.height = '50px';
             el.style.backgroundSize = 'contain';
             el.style.backgroundRepeat = 'no-repeat';
-            el.style.opacity = '1'; // Ensure fully opaque
-            el.style.filter = 'drop-shadow(0 0 2px rgba(255, 255, 255, 0.8))'; // White glow for contrast
+            el.style.opacity = '1';
+            el.style.filter = 'drop-shadow(0 0 2px rgba(255, 255, 255, 0.8))';
         } else if (isIcon) {
             el.innerText = icons[Math.floor(Math.random() * icons.length)];
             el.style.fontSize = (Math.random() * 24 + 16) + 'px';
             el.style.filter = `blur(${Math.random() > 0.8 ? 2 : 0}px)`;
             el.style.opacity = '0.9';
         } else {
-            // Check bubbles
+            // Standard bubble particle
             el.style.width = (Math.random() * 12 + 6) + 'px';
             el.style.height = el.style.width;
             el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
@@ -374,26 +369,25 @@ document.addEventListener('DOMContentLoaded', () => {
             el.style.opacity = '0.6';
         }
 
-        // Positioning (Start from bottom)
+        // Positioning (Initialize off-screen at bottom)
         const startX = Math.random() * 100; // 0 to 100vw
         el.style.position = 'fixed';
         el.style.left = startX + 'vw';
-        el.style.bottom = '-60px'; // Start slightly lower
+        el.style.bottom = '-60px';
         el.style.zIndex = '9999';
         el.style.pointerEvents = 'none';
         el.style.userSelect = 'none';
 
         document.body.appendChild(el);
 
-        // Animation Physics
-        // Slower, more blissful float
-        const speed = Math.random() * 5000 + 6000; // 6s - 11s duration (Slower)
-        const xDrift = (Math.random() - 0.5) * 150; // Gentle drift
-        const rotation = (Math.random() - 0.5) * 45; // Reduced rotation for "Name" readability
+        // Animation Physics properties
+        const speed = Math.random() * 5000 + 6000; // 6s - 11s duration
+        const xDrift = (Math.random() - 0.5) * 150;
+        const rotation = (Math.random() - 0.5) * 45;
 
         const animation = el.animate([
             { transform: `translate(0, 0) rotate(0deg)`, opacity: 0 },
-            { transform: `translate(${xDrift * 0.2}px, -20vh) rotate(${rotation * 0.1}deg)`, opacity: 1, offset: 0.15 }, // Fade in quicker
+            { transform: `translate(${xDrift * 0.2}px, -20vh) rotate(${rotation * 0.1}deg)`, opacity: 1, offset: 0.15 }, // Fade in
             { transform: `translate(${xDrift * 0.5}px, -50vh) rotate(${rotation * 0.5}deg)`, opacity: 1, offset: 0.5 },
             { transform: `translate(${xDrift}px, -100vh) rotate(${rotation}deg)`, opacity: 0 }
         ], {
