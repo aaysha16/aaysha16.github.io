@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- 
+    Author: Amey Thakur
+    Date: 2026-02-17
+    License: MIT
+    Description: 404 Page for Aaysha Ali's Portfolio.
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Prescription Not Found</title>
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, var(--accent-light) 0%, #fff 70%);
+            overflow: hidden;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0px;
+            line-height: 1;
+            font-family: var(--font-heading);
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.5s;
+        }
+
+        .error-msg {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            font-family: var(--font-heading);
+            font-style: italic;
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.8s;
+        }
+
+        .error-desc {
+            max-width: 400px;
+            color: #666;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1.1s;
+        }
+
+        .floating-icon {
+            font-size: 4rem;
+            color: var(--accent-color);
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .capsule {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .dna {
+            top: 70%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .flask {
+            top: 15%;
+            right: 25%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="floating-icon capsule">💊</div>
+    <div class="floating-icon dna">🧬</div>
+    <div class="floating-icon flask">🧪</div>
+
+    <h1 class="error-code">404</h1>
+    <h2 class="error-msg">Prescription Not Found</h2>
+    <p class="error-desc">
+        The formulation you are looking for has either expired or never existed in our lab records.
+    </p>
+    <a href="index.html" class="btn btn-primary">Return to Lab</a>
+
+    <script>
+        // Authorship Console Log
+        console.log(
+            "%c Designed & Developed by Amey Thakur %c \nhttps://github.com/amey-thakur",
+            "color: #0d9488; background: #ccfbf1; font-size: 16px; padding: 10px; border-radius: 5px; font-family: 'Inter', sans-serif; border: 2px solid #0d9488;",
+            "color: #2c3e50; font-size: 12px;"
+        );
+        console.log("%c Hint: Try typing 'aaysha' or 'amey' on this page... 🤫", "color: #999; font-style: italic;");
+
+        // Key Sequence Detector
+        let inputSequence = '';
+        document.addEventListener('keydown', (e) => {
+            inputSequence += e.key.toLowerCase();
+
+            if (inputSequence.includes('aaysha')) {
+                triggerAayshaEffect();
+                inputSequence = ''; // Reset
+            } else if (inputSequence.includes('amey')) {
+                triggerAmeyEffect();
+                inputSequence = ''; // Reset
+            }
+
+            // Keep buffer small
+            if (inputSequence.length > 20) {
+                inputSequence = inputSequence.slice(-20);
+            }
+        });
+
+        function triggerAayshaEffect() {
+            // Burst of Medical Icons
+            const icons = ['💊', '🧬', '🔬', '💻', '🧪', '🩸', '🏥', '🥼', '🩺'];
+            for (let i = 0; i < 30; i++) {
+                const el = document.createElement('div');
+                el.innerText = icons[Math.floor(Math.random() * icons.length)];
+                el.style.position = 'fixed';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = Math.random() * 100 + 'vh';
+                el.style.fontSize = (Math.random() * 40 + 20) + 'px';
+                el.style.zIndex = '9999';
+                el.style.pointerEvents = 'none';
+                el.style.transition = 'all 1.5s ease-out';
+                el.style.transform = 'scale(0)';
+
+                document.body.appendChild(el);
+
+                // Animate expansion and fade
+                requestAnimationFrame(() => {
+                    el.style.transform = 'scale(1) translateY(-100px)';
+                    el.style.opacity = '0';
+                });
+
+                setTimeout(() => el.remove(), 1500);
+            }
+        }
+
+        function triggerAmeyEffect() {
+            // Cinematic Matrix Overlay
+            const overlay = document.createElement('div');
+            Object.assign(overlay.style, {
+                position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+                background: '#000', zIndex: '10000', display: 'flex',
+                alignItems: 'center', justifyContent: 'center', flexDirection: 'column',
+                color: '#0f0', fontFamily: 'monospace', fontSize: '2rem',
+                opacity: 0, transition: 'opacity 0.5s'
+            });
+
+            overlay.innerHTML = `
+                <div>> SYSTEM_ACCESS: GRANTED</div>
+                <div style="font-size: 1rem; color: #fff; margin-top: 20px;">Designed & Developed by Amey Thakur</div>
+                <div style="font-size: 0.8rem; color: #666; margin-top: 10px;">(Cinematic Mode Active)</div>
+            `;
+
+            document.body.appendChild(overlay);
+
+            requestAnimationFrame(() => overlay.style.opacity = '1');
+
+            setTimeout(() => {
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.remove(), 500);
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>
