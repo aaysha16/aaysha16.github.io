@@ -903,8 +903,15 @@ footer {
     }
 
     .hero-visual {
-        display: none;
-        /* Hide abstract graphic on mobile for cleaner look */
+        display: flex;
+        height: auto;
+        margin-top: 2rem;
+        justify-content: center;
+    }
+
+    .profile-frame {
+        width: 250px;
+        height: 250px;
     }
 
     .about-grid {
