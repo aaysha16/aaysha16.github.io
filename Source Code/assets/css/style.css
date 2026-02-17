@@ -1205,32 +1205,32 @@ footer {
 
 /* 
  * ==========================================
- * PRINT OPTIMIZATION (Professional Report Style)
+ * Print Layout Configuration (Symmetric Perfection)
  * ==========================================
- * - Forces spacious, desktop-like layout (no mobile stacking)
- * - Retains full brand aesthetic (colors, gradients)
- * - Ensures clean page breaks
+ * - Strategy: "Architectural Symmetry".
+ * - Enforces balanced grids and alignment.
+ * - Skills: 3 Columns (User Requested).
+ * - Research: 2 Columns (Symmetric).
+ * - Interests: 3 Columns (Symmetric).
  */
 @media print {
     @page {
         margin: 1.5cm;
-        size: auto;
+        size: A4;
     }
 
-    /* 1. Global Print Reset & Visibility */
+    /* 1. Reset and Visibility */
     *,
     *:before,
     *:after {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
-        color-adjust: exact !important;
         box-shadow: none !important;
         text-shadow: none !important;
         transition: none !important;
         animation: none !important;
         filter: none !important;
         opacity: 1 !important;
-        /* Force visibility */
         transform: none !important;
     }
 
@@ -1238,11 +1238,13 @@ footer {
         margin: 0;
         padding: 0;
         background-color: #fff !important;
-        color: #1a1a1a;
+        color: #222;
         font-family: 'Inter', sans-serif;
-        font-size: 11pt;
+        font-size: 10.5pt;
+        /* Precisely legible */
         line-height: 1.6;
         width: 100%;
+        -webkit-font-smoothing: antialiased;
     }
 
     /* 2. Hide Web-Only Elements */
@@ -1258,17 +1260,17 @@ footer {
     footer,
     .floating-icon,
     iframe,
-    .social-links,
     .img-overlay {
         display: none !important;
     }
 
-    /* 3. Layout Structure */
+    /* 3. Section Layout - Symmetrical Spacing */
     .section {
         padding: 0 !important;
         margin-bottom: 3rem !important;
-        /* Spacious separation */
         page-break-inside: avoid;
+        display: block !important;
+        width: 100%;
     }
 
     .container {
@@ -1278,70 +1280,74 @@ footer {
         margin: 0 !important;
     }
 
-    /* 4. Header / Hero (Cover Page Style) */
+    /* 4. Hero Section - Centered Symmetry */
     .hero-section {
         height: auto !important;
         display: block !important;
         padding: 2rem 0 3rem 0 !important;
-        background: radial-gradient(circle at 70% 30%, #ccfbf1 0%, transparent 60%) !important;
-        border-bottom: 2px solid #0d9488;
+        background: radial-gradient(circle at 50% 50%, #effcf9 0%, transparent 70%) !important;
+        /* Centered Gradient */
+        border-bottom: 3px solid #0d9488;
         margin-bottom: 3rem;
-        page-break-after: avoid;
+        text-align: center;
+        /* Enforce Symmetry */
     }
 
     .hero-content {
         display: flex !important;
-        flex-direction: row;
-        justify-content: space-between;
+        flex-direction: column;
+        /* Stack for symmetry */
         align-items: center;
-        text-align: left;
+        width: 100%;
     }
 
     .hero-text {
-        width: 60%;
+        width: 100%;
+        text-align: center;
     }
 
     .hero-text h1 {
-        font-size: 36pt !important;
+        font-size: 42pt !important;
         color: #0d9488 !important;
-        line-height: 1.1;
+        font-family: 'Playfair Display', serif;
         margin: 0 0 1rem 0;
+        letter-spacing: -1px;
     }
 
     .hero-text .subtitle {
         font-size: 14pt;
         font-weight: 600;
-        color: #0f766e !important;
+        color: #115e59 !important;
         text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 1rem;
+        letter-spacing: 4px;
+        /* Wide tracking for elegance */
+        margin-bottom: 1.5rem;
     }
 
     .hero-text .description {
         font-size: 12pt;
-        color: #444;
-        max-width: 100%;
+        color: #555;
+        max-width: 80%;
+        margin: 0 auto;
+        line-height: 1.6;
     }
 
-    /* Show Hero Visual nicely in print */
     .hero-visual {
-        display: block !important;
-        width: 35%;
-        opacity: 0.1 !important;
-        /* Subtle watermark */
-        position: relative;
-        right: auto;
-        top: auto;
-        transform: scale(0.8) !important;
+        display: none !important;
     }
 
-    /* 5. Typography & Headings */
+    /* Hidden to perfect centering symmetry */
+
+    /* 5. Typography & Headings - Centered & Decorated */
     h2.section-title {
-        font-size: 20pt !important;
-        color: #2c3e50 !important;
+        font-size: 22pt !important;
+        color: #1f2937 !important;
+        font-family: 'Playfair Display', serif;
+        text-align: center;
+        /* Center all headers */
         border-bottom: 2px solid #0d9488;
-        padding-bottom: 0.5rem;
-        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        margin-bottom: 2.5rem;
         display: block;
         width: 100%;
     }
@@ -1350,49 +1356,63 @@ footer {
         display: none;
     }
 
-    /* 6. About Section - Side by Side */
+    /* 6. Layouts: About (Symmetric Split) */
     .about-grid {
         display: flex !important;
         flex-direction: row;
         gap: 3rem;
-        align-items: flex-start;
+        align-items: center;
+        /* Center vertically */
+        justify-content: center;
     }
 
     .about-image {
         display: block !important;
-        width: 200px;
+        width: 180px;
         flex-shrink: 0;
+        margin: 0 auto;
     }
 
     .img-wrapper {
         border: 4px solid #ccfbf1 !important;
-        border-radius: 12px;
-        box-shadow: none !important;
+        border-radius: 50%;
+        width: 180px;
+        height: 180px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .about-text {
-        font-size: 11pt;
+        text-align: justify;
+        /* Clean blocks */
+        flex: 1;
     }
 
     .vibe-tags {
-        display: flex !important;
-        flex-wrap: wrap;
+        justify-content: center;
         gap: 0.5rem;
-        margin-top: 1rem;
+        margin-top: 1.5rem;
     }
 
     .tag {
-        background: #f0fdfa !important;
-        color: #0d9488 !important;
-        border: 1px solid #ccfbf1;
+        background: #fff !important;
+        color: #0f766e !important;
+        border: 1px solid #0d9488;
         font-size: 9pt;
-        padding: 0.2rem 0.6rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 50px;
     }
 
-    /* 7. Timeline (Education) - Clean Vertical List */
+    /* 7. Layouts: Education (Centered Timeline) */
     .timeline {
-        margin: 0 !important;
-        padding-left: 1rem;
+        margin: 0 auto !important;
+        max-width: 90%;
     }
 
     .timeline::before {
@@ -1401,148 +1421,182 @@ footer {
     }
 
     .timeline-item {
-        margin-bottom: 1.5rem !important;
-        padding-left: 2rem;
+        margin-bottom: 2rem !important;
+        padding-left: 2.5rem;
         page-break-inside: avoid;
     }
 
     .timeline-item::before {
         left: -9px;
         background: #0d9488 !important;
-        border: 2px solid #fff !important;
-        width: 16px;
-        height: 16px;
+        border: 3px solid #fff !important;
+        width: 18px;
+        height: 18px;
     }
 
     .card-glass {
         background: transparent !important;
-        /* Clean for print */
         border: none !important;
-        box-shadow: none !important;
         padding: 0 !important;
+        text-align: left;
     }
 
     .card-glass h3 {
         font-size: 14pt;
-        color: #111;
         margin: 0;
+        font-family: 'Playfair Display', serif;
     }
 
     .card-glass h4 {
-        font-size: 12pt;
+        font-size: 11pt;
         color: #555;
-        margin: 0.2rem 0 0.5rem 0;
-    }
-
-    .card-glass p {
-        font-size: 10pt;
-        color: #444;
-        margin: 0;
+        margin: 0.3rem 0;
     }
 
     .text-accent {
         color: #0d9488 !important;
-        font-weight: bold;
     }
 
-    /* 8. Research - Cards Grid */
+    /* 8. Layouts: Research (Symmetric 2-Column Grid) */
     .research-grid {
         display: grid !important;
         grid-template-columns: 1fr 1fr;
-        /* 2-up grid */
+        /* Symmetric Split */
         gap: 1.5rem;
     }
 
     .card-research {
-        border: 1px solid #ddd !important;
+        border: 1px solid #e5e7eb !important;
         border-radius: 8px;
         page-break-inside: avoid;
         background: #fff !important;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        /* Equal heights */
     }
 
     .card-header {
         background: #f0fdfa !important;
         color: #0f766e !important;
-        padding: 0.8rem 1rem;
-        border-bottom: 1px solid #eee;
+        padding: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        text-align: center;
+        /* Center header text */
+    }
+
+    .card-header h3 {
+        font-size: 12pt;
+        margin: 0;
     }
 
     .card-body {
         padding: 1rem;
+        text-align: left;
     }
 
     .badge {
-        background: #0d9488 !important;
-        color: #fff !important;
+        display: inline-block;
+        background: #fff !important;
+        color: #0d9488 !important;
+        border: 1px solid #0d9488;
+        padding: 0.2rem 0.6rem;
+        font-size: 9pt;
+        margin-top: 0.5rem;
     }
 
-    /* 9. Skills - 3 Column Grid */
+    /* 9. Layouts: Capabilities (Skills) (3-Column Symmetric) */
     .skills-wrapper {
         display: grid !important;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr) !important;
+        /* Forced 3-Column */
         gap: 1.5rem;
+        page-break-inside: avoid;
     }
 
     .skill-category {
-        border: 1px solid #eee;
+        border: 1px solid #e5e7eb;
         padding: 1rem;
         border-radius: 8px;
         background: #fff;
-        page-break-inside: avoid;
+        text-align: center;
+        /* Center align for symmetry */
     }
 
     .skill-category h3 {
         font-size: 12pt;
-        border-bottom: 2px solid #f0fdfa;
-        margin-bottom: 0.8rem;
-        padding-bottom: 0.3rem;
+        border-bottom: 2px solid #0d9488;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        color: #111;
+        display: inline-block;
+        /* Center the underline */
+        min-width: 50%;
+    }
+
+    .skill-cloud {
+        justify-content: center;
+        /* Center pills */
     }
 
     .skill-pill {
         border: 1px solid #ccfbf1 !important;
-        background: #fff !important;
+        background: #f0fdfa !important;
         color: #0f766e !important;
         font-size: 9pt;
-        padding: 0.2rem 0.5rem;
-        margin: 0.1rem;
+        padding: 0.3rem 0.6rem;
+        margin: 0.2rem;
     }
 
-    /* 10. Interests - Horizontal Row */
+    /* 10. Layouts: Interests (Symmetric 3-Column) */
     .interests-grid {
-        display: flex !important;
-        flex-direction: row;
-        justify-content: flex-start;
-        gap: 2rem;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 1rem;
     }
 
     .interest-item {
-        border-left: 3px solid #0d9488;
-        padding-left: 1rem;
-        text-align: left;
+        border: 1px solid #e5e7eb;
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+        page-break-inside: avoid;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .interest-item i {
-        display: none;
-        /* Icons redundant here */
+        display: flex !important;
+        background: #f0fdfa !important;
+        color: #0d9488 !important;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid #ccfbf1;
     }
 
     .interest-item h3 {
         margin: 0;
         font-size: 11pt;
-        color: #333;
+        color: #111;
     }
 
-    /* 11. Contact - Footer Style */
+    /* 11. Contact (Symmetric Footer) */
     .contact-section {
-        border-top: 2px solid #0d9488;
-        padding-top: 2rem !important;
-        margin-top: 3rem;
+        border-top: 4px double #e5e7eb;
+        padding-top: 3rem !important;
+        margin-top: 4rem;
+        text-align: center;
     }
 
     .contact-wrapper {
         display: block !important;
-        background: none !important;
-        box-shadow: none !important;
     }
 
     .contact-info h2 {
@@ -1551,31 +1605,54 @@ footer {
 
     .contact-details {
         display: flex;
-        justify-content: space-between;
-        margin-top: 0;
+        justify-content: center;
+        gap: 3rem;
+        flex-wrap: wrap;
     }
 
     .detail-item {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        font-size: 10pt;
+        font-size: 11pt;
+    }
+
+    .detail-item i {
+        color: #0d9488 !important;
     }
 
     .detail-item a {
         text-decoration: none;
-        color: #000;
+        color: #111;
     }
 
-    /* URL Reveal */
-    a[href^="http"]:after {
-        content: " (" attr(href) ")";
-        font-size: 8pt;
-        color: #666;
+    .social-links {
+        display: flex !important;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+        border-top: 1px solid #eee;
+        padding-top: 1.5rem;
     }
 
-    /* Remove URL reveal for social icons or specific links if cluttering */
-    .detail-item a:after {
+    .social-links a {
+        color: #0d9488 !important;
+        font-size: 14pt;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 10pt;
+    }
+
+    .social-links a i {
+        font-size: 14pt;
+        margin-bottom: 0.3rem;
+    }
+
+    /* Link Handling */
+    a[href^="http"]:not(.social-links a):after {
         content: "";
+        /* Clean look - remove URL clutter for perfection */
     }
 }
