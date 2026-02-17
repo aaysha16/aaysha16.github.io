@@ -1636,16 +1636,19 @@ footer {
         color: #111;
     }
 
-    /* 11. Contact & Socials (Clickable) */
+    /* 11. Contact (Symmetric Footer) */
     .contact-section {
         border-top: 4px double #e5e7eb;
         padding-top: 3rem !important;
         margin-top: 4rem;
         text-align: center;
+        page-break-before: always !important;
+        /* Force new page as requested */
     }
 
     .contact-wrapper {
         display: block !important;
+        page-break-inside: avoid !important;
     }
 
     .contact-info h2 {
