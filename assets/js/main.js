@@ -129,6 +129,49 @@ document.addEventListener('DOMContentLoaded', () => {
     );
     console.log("%c Psst! Click the 'dot' in the logo for a behind-the-scenes surprise. 🎬", "color: #ff007f; font-style: italic;");
 
+    // --- AJAX Form Submission ---
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(contactForm);
+
+            fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    showNotification("Message Sent Successfully! 📨", "success");
+                    contactForm.reset();
+                } else {
+                    showNotification("Oops! Something went wrong.", "error");
+                }
+            }).catch(error => {
+                showNotification("Error connecting to server.", "error");
+            });
+        });
+    }
+
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.className = `form-notification ${type}`;
+        notification.innerText = message;
+
+        document.body.appendChild(notification);
+
+        // Trigger animation
+        setTimeout(() => notification.classList.add('show'), 100);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+
     // --- Global Keystroke Easter Eggs ---
     let inputSequence = '';
     document.addEventListener('keydown', (e) => {
