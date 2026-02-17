@@ -1109,3 +1109,19 @@ footer {
     bottom: 80px;
     /* Slide up */
 }
+
+/* Mobile adjustments for PWA button */
+@media (max-width: 768px) {
+    .pwa-install-btn {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+        opacity: 0.9;
+        /* Make it slightly transparent */
+    }
+
+    .pwa-install-btn:hover {
+        opacity: 1;
+    }
+}
