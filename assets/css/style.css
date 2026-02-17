@@ -903,6 +903,10 @@ footer {
         margin-right: auto;
     }
 
+    .hero-visual {
+        display: none;
+    }
+
     .about-image {
         display: block;
         width: 100%;
