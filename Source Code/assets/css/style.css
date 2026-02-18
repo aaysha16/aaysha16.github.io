@@ -1225,12 +1225,11 @@ footer {
 
 /* 
  * ==========================================
- * Print Layout Configuration (User Refined)
+ * Print Layout Configuration
  * ==========================================
- * - Hero Badges: 2x2 Grid.
- * - Research: Horizontal Card with fixed Icon.
- * - Interests: Perfectly Centered.
- * - Contact: Clickable/Visible Links.
+ * Defines print-specific overrides for A4 paper size.
+ * Includes adjustments for grid layouts, visibility,
+ * and typography to ensure clean output.
  */
 @media print {
     @page {
@@ -1288,7 +1287,7 @@ footer {
         padding: 0 !important;
         margin-bottom: 2.5rem !important;
         page-break-inside: auto;
-        /* ALLOW break to prevent bottom cutoff */
+        /* Allow page breaks to avoid truncation */
         display: block !important;
         width: 100%;
     }
@@ -1310,7 +1309,7 @@ footer {
         margin-bottom: 3rem;
         text-align: center;
         page-break-inside: avoid;
-        /* Keep hero intact */
+        /* Prevent page break inside hero section */
     }
 
     .hero-content {
@@ -1366,14 +1365,14 @@ footer {
         display: block;
         width: 100%;
         page-break-after: avoid;
-        /* Keep title with content */
+        /* Ensure title remains with following content */
     }
 
     .section-title::after {
         display: none;
     }
 
-    /* 6. Layouts: About (Symmetric w/ 2x2 Badges) */
+    /* 6. Layouts: About Section */
     .about-grid {
         display: flex !important;
         flex-direction: row;
@@ -1409,7 +1408,7 @@ footer {
         flex: 1;
     }
 
-    /* BADGES: 2x2 Grid */
+    /* Badge Grid Layout */
     .vibe-tags {
         display: grid !important;
         grid-template-columns: 1fr 1fr;
@@ -1434,18 +1433,18 @@ footer {
         box-sizing: border-box;
     }
 
-    /* 7. Education - Precision Alignment & Safety */
+    /* 7. Education - Timeline Layout */
     .timeline {
         margin: 0 auto !important;
         max-width: 90%;
         padding-left: 2rem !important;
-        /* Context Start for Items */
+        /* Establish positioning context */
         background: transparent !important;
     }
 
     .timeline::before {
         left: 2rem !important;
-        /* Line at exact context start */
+        /* Vertical timeline line positioning */
         border-left: 2px solid #e5e7eb !important;
     }
 
@@ -1453,7 +1452,7 @@ footer {
         margin-bottom: 3rem !important;
         padding-left: 2.5rem !important;
         padding-bottom: 2rem !important;
-        /* LARGE buffer */
+        /* Bottom padding to prevent clipping */
         page-break-inside: avoid !important;
         break-inside: avoid !important;
         position: relative !important;
@@ -1464,7 +1463,7 @@ footer {
         max-height: none !important;
     }
 
-    /* Override any animation hiding */
+    /* Ensure visibility of animated elements */
     .reveal-up,
     .reveal-left,
     .reveal-right {
@@ -1476,11 +1475,11 @@ footer {
     }
 
     .timeline-item::before {
-        /* Dot Position - Simplified */
+        /* Timeline dot positioning */
         content: '' !important;
         position: absolute !important;
         left: 1px !important;
-        /* Center of 2px Line */
+        /* Center align with vertical line */
         transform: translateX(-50%) !important;
         top: 0.6rem !important;
         background: #0d9488 !important;
@@ -1490,10 +1489,10 @@ footer {
         box-shadow: 0 0 0 1px #0d9488 !important;
         z-index: 5 !important;
         margin: 0 !important;
-        /* Clear any margin interference */
+        /* Remove default margins */
     }
 
-    /* NUCLEAR FIX: Reset all typography and layout for timeline content */
+    /* Reset timeline content styles for print capability */
     .timeline-content,
     .timeline-content * {
         all: unset !important;
@@ -1511,7 +1510,7 @@ footer {
         line-height: 1.4 !important;
     }
 
-    /* Re-apply basic styling after reset */
+    /* Apply print-specific typography */
     .timeline-content h3 {
         font-size: 14pt !important;
         font-weight: 700 !important;
@@ -1531,7 +1530,7 @@ footer {
         white-space: normal !important;
     }
 
-    /* Prevent text cutoff inside card - Aggressive */
+    /* Prevent text modification or clipping in print */
     .card-glass p {
         widows: 3 !important;
         orphans: 3 !important;
@@ -1539,14 +1538,14 @@ footer {
         margin-bottom: 0 !important;
         overflow: visible !important;
         white-space: normal !important;
-        /* Ensure wrapping */
+        /* Force text wrapping */
         text-overflow: clip !important;
-        /* Never ellipsis */
+        /* Disable text truncation */
         display: block !important;
         height: auto !important;
     }
 
-    /* Fix for inline elements being cut off */
+    /* Ensure inline elements are visible */
     .card-glass p strong,
     .card-glass p .text-accent,
     .card-glass p span {
@@ -1655,7 +1654,7 @@ footer {
         margin-top: 0.5rem;
     }
 
-    /* 9. Skills: 3-Column */
+    /* 9. Skills: Grid Layout */
     .skills-wrapper {
         display: grid !important;
         grid-template-columns: repeat(3, 1fr) !important;
@@ -1694,14 +1693,14 @@ footer {
         border: 1px solid #ccfbf1 !important;
     }
 
-    /* 10. Interests: Perfectly Centered */
+    /* 10. Interests: Centered Grid Layout */
     .interests-grid {
         display: grid !important;
         grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
         margin-top: 1rem;
         justify-items: center;
-        /* Center items horizontally in grid cells */
+        /* Center items horizontally */
         align-items: center;
     }
 
@@ -1715,9 +1714,9 @@ footer {
         flex-direction: column;
         align-items: center;
         width: 100%;
-        /* Fill cell */
+        /* Fill available space */
         height: 100%;
-        /* Uniform height */
+        /* Ensure uniform height */
         justify-content: center;
     }
 
@@ -1741,14 +1740,14 @@ footer {
         color: #111;
     }
 
-    /* 11. Contact (Symmetric Footer) */
+    /* 11. Contact Section Layout */
     .contact-section {
         border-top: 4px double #e5e7eb;
         padding-top: 3rem !important;
         margin-top: 4rem;
         text-align: center;
         page-break-before: always !important;
-        /* Force new page as requested */
+        /* Force page break before contact section */
     }
 
     .contact-wrapper {
@@ -1778,7 +1777,7 @@ footer {
         color: #0d9488 !important;
     }
 
-    /* Make Links Clickable & Visible */
+    /* Ensure links are clickable and visible */
     .detail-item a {
         text-decoration: underline;
         /* Visual cue */
@@ -1786,10 +1785,10 @@ footer {
         font-weight: 600;
     }
 
-    /* Social Badges */
+    /* Social Media Links */
     .social-links {
         display: flex !important;
-        /* REVEALED */
+        /* Display social links */
         justify-content: center;
         gap: 2rem;
         margin-top: 2rem;
@@ -1813,7 +1812,7 @@ footer {
         margin-bottom: 0.5rem;
     }
 
-    /* Clean up URLs - relying on clickable links now */
+    /* Hide URL text expansion */
     a[href^="http"]:after {
         content: "";
     }
