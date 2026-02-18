@@ -1452,48 +1452,66 @@ footer {
     .timeline-item {
         margin-bottom: 3rem !important;
         padding-left: 2.5rem !important;
-        padding-bottom: 1rem !important;
-        /* Extra buffer against cutoff */
+        padding-bottom: 2rem !important;
+        /* LARGE buffer */
         page-break-inside: avoid !important;
         break-inside: avoid !important;
         position: relative !important;
         display: block !important;
         overflow: visible !important;
         height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+    }
+
+    /* Override any animation hiding */
+    .reveal-up,
+    .reveal-left,
+    .reveal-right {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+        clip-path: none !important;
+        /* Ensure no clipping */
     }
 
     .timeline-item::before {
-        /* Dot Positioning:
-           - Timeline Line is at left: 2rem of .timeline
-           - Timeline Item is a block child, so its border-box left edge aligns with .timeline content-box left edge (which is at 2rem).
-           - So Item's left edge IS the line's position.
-           - We position dot relative to Item. left: 0 places it at the line.
-           - Line is 2px wide. Center is 1px.
-           - Dot is 18px. translateX(-50%) centers it.
-           - margin-left: 1px shifts center to line center.
-        */
+        /* Dot Position - Simplified */
         content: '' !important;
         position: absolute !important;
-        left: 0 !important;
-        margin-left: 1px !important;
-        /* Perfect Center on 2px line */
+        left: 1px !important;
+        /* Center of 2px Line */
         transform: translateX(-50%) !important;
         top: 0.6rem !important;
-        /* Optical center with text */
         background: #0d9488 !important;
         border: 3px solid #fff !important;
         width: 18px !important;
         height: 18px !important;
         box-shadow: 0 0 0 1px #0d9488 !important;
         z-index: 5 !important;
+        margin: 0 !important;
+        /* Clear any margin interference */
     }
 
-    /* Prevent text cutoff inside card */
+    .timeline-content {
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    /* Prevent text cutoff inside card - Aggressive */
     .card-glass p {
-        widows: 4 !important;
-        orphans: 4 !important;
-        padding-bottom: 0.5rem;
-        /* Internal buffer */
+        widows: 3 !important;
+        orphans: 3 !important;
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+        overflow: visible !important;
+        white-space: normal !important;
+        /* Ensure wrapping */
+        text-overflow: clip !important;
+        /* Never ellipsis */
+        display: block !important;
+        height: auto !important;
     }
 
     .card-glass {
