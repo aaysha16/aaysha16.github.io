@@ -1493,10 +1493,42 @@ footer {
         /* Clear any margin interference */
     }
 
-    .timeline-content {
+    /* NUCLEAR FIX: Reset all typography and layout for timeline content */
+    .timeline-content,
+    .timeline-content * {
+        all: unset !important;
         display: block !important;
+        /* Force block layout */
+        font-family: 'Inter', sans-serif !important;
+        color: #222 !important;
+        text-align: left !important;
+        opacity: 1 !important;
+        visibility: visible !important;
         height: auto !important;
+        width: auto !important;
         overflow: visible !important;
+        margin-bottom: 0.5rem !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Re-apply basic styling after reset */
+    .timeline-content h3 {
+        font-size: 14pt !important;
+        font-weight: 700 !important;
+        margin-bottom: 0.2rem !important;
+    }
+
+    .timeline-content h4 {
+        font-size: 11pt !important;
+        color: #555 !important;
+        margin-bottom: 0.5rem !important;
+        font-style: italic !important;
+    }
+
+    .timeline-content p,
+    .timeline-content p strong {
+        font-size: 10.5pt !important;
+        white-space: normal !important;
     }
 
     /* Prevent text cutoff inside card - Aggressive */
@@ -1512,6 +1544,20 @@ footer {
         /* Never ellipsis */
         display: block !important;
         height: auto !important;
+    }
+
+    /* Fix for inline elements being cut off */
+    .card-glass p strong,
+    .card-glass p .text-accent,
+    .card-glass p span {
+        display: inline !important;
+        position: static !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        width: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+        float: none !important;
     }
 
     .card-glass {
