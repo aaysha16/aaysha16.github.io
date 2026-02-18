@@ -1,5 +1,6 @@
 /**
  * Author: Amey Thakur
+ * GitHub: https://github.com/amey-thakur
  * Date: 2026-02-17
  * License: MIT
  * Description: Main JavaScript file handling navigation and interactions.
