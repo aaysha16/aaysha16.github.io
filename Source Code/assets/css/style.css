@@ -2610,51 +2610,14 @@ footer {
     100% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0); }
 }
 
-/* --- Floating Theme Toggle Button --- */
-.theme-toggle {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 50px;
-    height: 50px;
-    background-color: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 2000;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
-    color: var(--text-color);
-    font-size: 1.2rem;
-}
-
-.theme-toggle:hover {
-    transform: scale(1.1) rotate(15deg);
-    background-color: var(--accent-light);
-    color: var(--accent-color);
-}
-
-/* Stack Back-to-Top above the theme toggle so they never overlap */
-.back-to-top {
-    bottom: 5.5rem !important;
-}
-
 @media (max-width: 768px) {
-    .music-btn,
-    .theme-toggle {
+    .music-btn {
         width: 42px;
         height: 42px;
         font-size: 1rem;
         bottom: 1.25rem;
+        left: 1.25rem;
     }
-    .music-btn { left: 1.25rem; }
-    .theme-toggle { right: 1.25rem; }
-    .back-to-top { bottom: 4.5rem !important; right: 1.25rem; }
     .interests-grid { gap: 2rem; }
     .interest-item { width: 140px; }
     .interest-item i { width: 64px; height: 64px; font-size: 2rem; }

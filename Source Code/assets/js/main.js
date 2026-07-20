@@ -32,27 +32,6 @@ function trapFocus(e, container) {
     }
 }
 
-// Reflect the current theme on the toggle button (moon = go dark, sun = go light).
-function syncThemeIcon() {
-    const btn = document.getElementById('theme-toggle');
-    if (!btn) return;
-    const icon = btn.querySelector('i');
-    const isDark = document.body.classList.contains('dark-theme');
-    if (icon) {
-        icon.classList.toggle('fa-sun', isDark);
-        icon.classList.toggle('fa-moon', !isDark);
-    }
-    btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
-}
-
-// Flip the theme and persist the choice.
-function toggleTheme() {
-    document.body.classList.toggle('dark-theme');
-    const isDark = document.body.classList.contains('dark-theme');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    syncThemeIcon();
-}
-
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Background Music Control ---
@@ -198,9 +177,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Friendly console note ---
     console.log(
-        "%c Hi there! Thanks for visiting Aaysha's portfolio. 🌿 ",
+        "%c Hi there. Thanks for visiting Aaysha Ali's portfolio. ",
         "color: #0d9488; background: #ccfbf1; font-size: 14px; padding: 8px 12px; border-radius: 6px; font-family: 'Inter', sans-serif; border: 2px solid #0d9488;"
     );
+    console.log("%c Tip: click the '.' in the logo to switch between light and dark.", "color: #0f766e; font-style: italic;");
 
     // --- AJAX Form Submission ---
     const contactForm = document.getElementById('contact-form');
@@ -217,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }).then(response => {
                 if (response.ok) {
-                    showNotification("Message Sent Successfully! 📨", "success");
+                    showNotification("Message Sent Successfully!", "success");
                     contactForm.reset();
                 } else {
                     showNotification("Oops! Something went wrong.", "error");
@@ -245,14 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4500);
     }
 
-    // --- Theme Toggle (visible button + secret "." in the logo) ---
-    syncThemeIcon();
-
-    const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', toggleTheme);
-    }
-
+    // --- Theme Toggle (clicking the "." in the logo) ---
     const logoDot = document.querySelector('.dot');
     if (logoDot) {
         logoDot.style.cursor = 'pointer';
@@ -260,19 +233,24 @@ document.addEventListener('DOMContentLoaded', () => {
         logoDot.setAttribute('tabindex', '0');
         logoDot.setAttribute('aria-label', 'Toggle dark theme');
 
-        const dotToggle = (e) => {
+        const toggleTheme = (e) => {
             e.preventDefault();
             e.stopPropagation();
-            toggleTheme();
+            document.body.classList.toggle('dark-theme');
+
+            // Save preference
+            const isDark = document.body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
             // Subtle dot pulse animation
             logoDot.style.transform = 'scale(1.8)';
             setTimeout(() => { logoDot.style.transform = 'scale(1)'; }, 300);
         };
 
-        logoDot.addEventListener('click', dotToggle);
+        logoDot.addEventListener('click', toggleTheme);
         logoDot.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
-                dotToggle(e);
+                toggleTheme(e);
             }
         });
     }
