@@ -32,7 +32,7 @@
 <br>
 
 <p align="center">
-  📍 &nbsp;<b>New Delhi, India</b>
+  📍 &nbsp;<b>New Delhi, Delhi, India</b>
 </p>
 
 <img width="100%" alt="" src="./.github/footer.svg" />
