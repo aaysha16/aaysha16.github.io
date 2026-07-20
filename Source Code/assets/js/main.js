@@ -1,37 +1,84 @@
 /**
- * Author: Amey Thakur
- * GitHub: https://github.com/amey-thakur
- * Date: 2026-02-17
+ * Portfolio Website for Aaysha Ali
  * License: MIT
- * Description: Main JavaScript file handling navigation and interactions.
+ * Description: Main JavaScript file handling navigation, theme, music and interactions.
  */
+
+// Tracks the control that opened a modal so focus can return to it on close.
+let lastFocusedElement = null;
+
+// Honor the user's reduced-motion preference for scripted scrolling.
+function scrollBehavior() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+}
+
+// Keep keyboard focus inside an open modal (Tab / Shift+Tab wrap around).
+function trapFocus(e, container) {
+    const focusable = container.querySelectorAll(
+        'a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
+    );
+    const visible = Array.from(focusable).filter(el => el.offsetParent !== null);
+    if (visible.length === 0) return;
+
+    const first = visible[0];
+    const last = visible[visible.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+    }
+}
+
+// Reflect the current theme on the toggle button (moon = go dark, sun = go light).
+function syncThemeIcon() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    const icon = btn.querySelector('i');
+    const isDark = document.body.classList.contains('dark-theme');
+    if (icon) {
+        icon.classList.toggle('fa-sun', isDark);
+        icon.classList.toggle('fa-moon', !isDark);
+    }
+    btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+}
+
+// Flip the theme and persist the choice.
+function toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    const isDark = document.body.classList.contains('dark-theme');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    syncThemeIcon();
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Music Control
+    // --- Background Music Control ---
     const musicBtn = document.getElementById('music-btn');
     const bgMusic = document.getElementById('bg-music');
-    const musicIcon = musicBtn.querySelector('i');
+    if (musicBtn && bgMusic) {
+        const musicIcon = musicBtn.querySelector('i');
+        bgMusic.volume = 0.4;
 
-    // Set initial volume
-    bgMusic.volume = 0.4;
-
-    musicBtn.addEventListener('click', () => {
-        if (bgMusic.paused) {
-            bgMusic.play().then(() => {
-                musicBtn.classList.add('playing');
-                musicIcon.classList.remove('fa-music');
-                musicIcon.classList.add('fa-pause');
-            }).catch(error => {
-                console.log("Audio play failed:", error);
-            });
-        } else {
-            bgMusic.pause();
-            musicBtn.classList.remove('playing');
-            musicIcon.classList.remove('fa-pause');
-            musicIcon.classList.add('fa-music');
-        }
-    });
+        musicBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play().then(() => {
+                    musicBtn.classList.add('playing');
+                    musicIcon.classList.remove('fa-music');
+                    musicIcon.classList.add('fa-pause');
+                }).catch(error => {
+                    console.log('Audio play failed:', error);
+                });
+            } else {
+                bgMusic.pause();
+                musicBtn.classList.remove('playing');
+                musicIcon.classList.remove('fa-pause');
+                musicIcon.classList.add('fa-music');
+            }
+        });
+    }
 
     // --- Navigation & Mobile Menu ---
     const hamburger = document.querySelector('.hamburger');
@@ -41,8 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Toggle Mobile Menu
     hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
+        const isOpen = navLinks.classList.toggle('active');
         hamburger.classList.toggle('toggle');
+        hamburger.setAttribute('aria-expanded', isOpen);
     });
 
     // Close mobile menu when a link is clicked
@@ -51,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('toggle');
+                hamburger.setAttribute('aria-expanded', false);
             }
         });
     });
@@ -78,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navItems.forEach(li => {
             li.classList.remove('active');
             if (li.getAttribute('href').includes(current)) {
-                li.classList.add('active'); // Add CSS class for active state if needed
+                li.classList.add('active');
             }
         });
     });
@@ -141,19 +190,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (target) {
                 window.scrollTo({
                     top: target.offsetTop - 80, // Offset for fixed header
-                    behavior: 'smooth'
+                    behavior: scrollBehavior()
                 });
             }
         });
     });
 
-    // --- Authorship & Easter Eggs ---
+    // --- Friendly console note ---
     console.log(
-        "%c Designed & Developed by Amey Thakur %c \nhttps://github.com/amey-thakur",
-        "color: #0d9488; background: #ccfbf1; font-size: 16px; padding: 10px; border-radius: 5px; font-family: 'Inter', sans-serif; border: 2px solid #0d9488;",
-        "color: #2c3e50; font-size: 12px;"
+        "%c Hi there! Thanks for visiting Aaysha's portfolio. 🌿 ",
+        "color: #0d9488; background: #ccfbf1; font-size: 14px; padding: 8px 12px; border-radius: 6px; font-family: 'Inter', sans-serif; border: 2px solid #0d9488;"
     );
-    console.log("%c Psst! Click the 'dot' in the logo for a behind-the-scenes surprise. 🎬", "color: #ff007f; font-style: italic;");
 
     // --- AJAX Form Submission ---
     const contactForm = document.getElementById('contact-form');
@@ -198,301 +245,227 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4500);
     }
 
-    // --- Global Keystroke Easter Eggs ---
-    let inputSequence = '';
-    document.addEventListener('keydown', (e) => {
-        inputSequence += e.key.toLowerCase();
+    // --- Theme Toggle (visible button + secret "." in the logo) ---
+    syncThemeIcon();
 
-        if (inputSequence.includes('aaysha')) {
-            triggerAayshaEffect();
-            inputSequence = ''; // Reset
-        } else if (inputSequence.includes('amey')) {
-            triggerAmeyEffect();
-            inputSequence = ''; // Reset
-        }
-
-        // Keep buffer small
-        if (inputSequence.length > 20) {
-            inputSequence = inputSequence.slice(-20);
-        }
-    });
-
-    // Easter Egg 1: Aaysha's Vibe (Clicking "Aaysha Ali")
-    const logoText = document.querySelector('.logo');
-    if (logoText) {
-        logoText.addEventListener('click', (e) => {
-            if (e.target.classList.contains('dot')) return; // Let the dot handle its own click
-            e.preventDefault();
-            triggerAayshaEffect();
-        });
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', toggleTheme);
     }
 
-    // Easter Egg 2: Amey's Cinematic Vibe (Clicking the ".")
     const logoDot = document.querySelector('.dot');
     if (logoDot) {
-        logoDot.style.cursor = 'pointer'; // Make it look clickable
-        logoDot.addEventListener('click', (e) => {
+        logoDot.style.cursor = 'pointer';
+        logoDot.setAttribute('role', 'button');
+        logoDot.setAttribute('tabindex', '0');
+        logoDot.setAttribute('aria-label', 'Toggle dark theme');
+
+        const dotToggle = (e) => {
             e.preventDefault();
             e.stopPropagation();
-            triggerAmeyEffect();
+            toggleTheme();
+            // Subtle dot pulse animation
+            logoDot.style.transform = 'scale(1.8)';
+            setTimeout(() => { logoDot.style.transform = 'scale(1)'; }, 300);
+        };
+
+        logoDot.addEventListener('click', dotToggle);
+        logoDot.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                dotToggle(e);
+            }
         });
     }
 
-    function triggerAayshaEffect() {
-        // "The Aaysha Flow" - Ambient & Non-intrusive Interaction
+    // The saved theme is applied before first paint by an inline script in index.html,
+    // so no restore step is needed here.
 
-        // 1. Play "Blissful" Sound - Direct Synthesis
-        // Generate a low frequency, rich harmonic tone
-        playSingingBowl();
-
-        // 2. Generate Flowing Particles
-        // Create a stream by staggering particle creation
-        const totalParticles = 60;
-        const duration = 8000;
-
-        // Ensure "Aaysha" bubbles appear at specific intervals
-        setTimeout(() => createFlowParticle(true), 500);
-        setTimeout(() => createFlowParticle(true), 3500);
-        setTimeout(() => createFlowParticle(true), 6500);
-
-        for (let i = 0; i < totalParticles; i++) {
-            setTimeout(() => {
-                createFlowParticle(false);
-            }, i * (duration / totalParticles));
-        }
-    }
-
-    // Custom Web Audio API Synthesizer: "The Dream Piano"
-    function playSingingBowl() {
-        try {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (!AudioContext) return;
-
-            const ctx = new AudioContext();
-
-            // Resume context for mobile autoplay compliance
-            if (ctx.state === 'suspended') {
-                ctx.resume();
+    // --- One-time teardown of stale Service Workers / caches from the old PWA build ---
+    if ('serviceWorker' in navigator && !localStorage.getItem('sw-cleared')) {
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+            for (let registration of registrations) {
+                registration.unregister();
             }
+        });
 
-            const now = ctx.currentTime;
-
-            // Chord: F Major 9 (Peaceful, dreamy, open)
-            // F3, A3, C4, E4, G4
-            const frequencies = [174.61, 220.00, 261.63, 329.63, 392.00];
-
-            const masterGain = ctx.createGain();
-            masterGain.connect(ctx.destination);
-
-            // ADSR Envelope - Natural Piano Decay
-            // Attack: Quick swell
-            // Decay/Release: Long natural fade without artificial sustain
-            masterGain.gain.setValueAtTime(0, now);
-            masterGain.gain.linearRampToValueAtTime(0.4, now + 0.1); // Attack
-            masterGain.gain.exponentialRampToValueAtTime(0.001, now + 6.0); // Natural 6s Decay
-
-            frequencies.forEach((freq, i) => {
-                const osc = ctx.createOscillator();
-                const nodeGain = ctx.createGain();
-
-                // FM Synthesis for Electric Piano texture
-                const mod = ctx.createOscillator();
-                const modGain = ctx.createGain();
-                mod.frequency.value = freq * 2; // Octave harmonic
-                mod.type = 'sine';
-                modGain.gain.value = freq * 0.2; // Subtle modulation
-
-                mod.connect(modGain);
-                modGain.connect(osc.frequency);
-
-                // Carrier
-                osc.type = 'sine';
-                osc.frequency.value = freq;
-
-                // Individual Harmonic Envelope
-                // Slightly staggered attacks for realism
-                nodeGain.gain.setValueAtTime(0, now);
-                nodeGain.gain.linearRampToValueAtTime(0.15, now + 0.05 + (i * 0.02));
-                nodeGain.gain.exponentialRampToValueAtTime(0.001, now + 5.0); // Slightly shorter than master
-
-                osc.connect(nodeGain);
-                nodeGain.connect(masterGain);
-
-                mod.start(now);
-                mod.stop(now + 6.5);
-                osc.start(now);
-                osc.stop(now + 6.5);
+        if (window.caches) {
+            caches.keys().then(function (names) {
+                for (let name of names) {
+                    caches.delete(name);
+                }
             });
-
-        } catch (e) {
-            console.error("Audio synth error:", e);
-        }
-    }
-
-    function createFlowParticle(forceName = false) {
-        const icons = ['💊', '🧬', '🔬', '💻', '🧪', '🩸', '🏥', '🥼', '🩺', '✨', '⭐', '💫', '🌿', '🍂'];
-        const colors = ['#0d9488', '#ccfbf1', '#fbbf24', '#f472b6', '#ffffff', '#a7f3d0'];
-        // Integrated SVG for the 'Aaysha' name particle
-        const aayshaSvg = `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Playfair Display, serif' font-weight='bold' font-style='italic' font-size='22' fill='%230f766e'%3EAaysha%3C/text%3E%3C/svg%3E`;
-
-        const el = document.createElement('div');
-
-        // Probability logic for particle type
-        let isName = forceName;
-        if (!isName) {
-            const randomVal = Math.random();
-            isName = randomVal > 0.96; // Rare chance for natural occurrence
         }
 
-        const isIcon = !isName && Math.random() > 0.5;
-
-        // Visual Configuration
-        if (isName) {
-            el.style.backgroundImage = `url("${aayshaSvg}")`;
-            el.style.width = '140px';
-            el.style.height = '50px';
-            el.style.backgroundSize = 'contain';
-            el.style.backgroundRepeat = 'no-repeat';
-            el.style.opacity = '1';
-            el.style.filter = 'drop-shadow(0 0 2px rgba(255, 255, 255, 0.8))';
-        } else if (isIcon) {
-            el.innerText = icons[Math.floor(Math.random() * icons.length)];
-            el.style.fontSize = (Math.random() * 24 + 16) + 'px';
-            el.style.filter = `blur(${Math.random() > 0.8 ? 2 : 0}px)`;
-            el.style.opacity = '0.9';
-        } else {
-            // Standard bubble particle
-            el.style.width = (Math.random() * 12 + 6) + 'px';
-            el.style.height = el.style.width;
-            el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            el.style.borderRadius = '50%';
-            el.style.boxShadow = `0 0 ${Math.random() * 10 + 2}px ${el.style.backgroundColor}`;
-            el.style.opacity = '0.6';
-        }
-
-        // Positioning (Initialize off-screen at bottom)
-        const startX = Math.random() * 100; // 0 to 100vw
-        el.style.position = 'fixed';
-        el.style.left = startX + 'vw';
-        el.style.bottom = '-60px';
-        el.style.zIndex = '9999';
-        el.style.pointerEvents = 'none';
-        el.style.userSelect = 'none';
-
-        document.body.appendChild(el);
-
-        // Animation Physics properties
-        const speed = Math.random() * 5000 + 6000; // 6s - 11s duration
-        const xDrift = (Math.random() - 0.5) * 150;
-        const rotation = (Math.random() - 0.5) * 45;
-
-        const animation = el.animate([
-            { transform: `translate(0, 0) rotate(0deg)`, opacity: 0 },
-            { transform: `translate(${xDrift * 0.2}px, -20vh) rotate(${rotation * 0.1}deg)`, opacity: 1, offset: 0.15 }, // Fade in
-            { transform: `translate(${xDrift * 0.5}px, -50vh) rotate(${rotation * 0.5}deg)`, opacity: 1, offset: 0.5 },
-            { transform: `translate(${xDrift}px, -100vh) rotate(${rotation}deg)`, opacity: 0 }
-        ], {
-            duration: speed,
-            easing: 'ease-out'
-        });
-
-        animation.onfinish = () => el.remove();
-    }
-
-    function triggerAmeyEffect() {
-        // Cinematic Matrix/Code Overlay
-        const overlay = document.createElement('div');
-        overlay.style.position = 'fixed';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.background = 'rgba(0, 0, 0, 0.9)';
-        overlay.style.zIndex = '10000';
-        overlay.style.display = 'flex';
-        overlay.style.alignItems = 'center';
-        overlay.style.justifyContent = 'center';
-        overlay.style.color = '#0f0';
-        overlay.style.fontFamily = 'monospace';
-        overlay.style.textAlign = 'center';
-        overlay.style.padding = '20px';
-        overlay.style.boxSizing = 'border-box';
-        overlay.style.flexDirection = 'column';
-
-        // Responsive font sizes using clamp
-        overlay.innerHTML = `
-            <div style="font-size: clamp(1.5rem, 5vw, 3rem); font-weight: bold; margin-bottom: 10px;">SYSTEM OVERRIDE: INITIATED</div>
-            <div style="font-size: clamp(1rem, 4vw, 2rem); margin-bottom: 2rem;">Developer Mode: Active</div>
-            <div style="font-size: clamp(0.8rem, 3vw, 1rem); color: #fff; opacity: 0.8;">Designed & Developed by Amey Thakur</div>
-        `;
-
-        document.body.appendChild(overlay);
-
-        // Simple typing effect or glitch could go here, but let's keep it pristine
-        setTimeout(() => {
-            overlay.style.transition = 'opacity 1s ease';
-            overlay.style.opacity = '0';
-            setTimeout(() => overlay.remove(), 1000);
-        }, 3000);
-    }
-
-
-    // --- PWA Handling ---
-    let deferredPrompt;
-    const pwaBtn = document.getElementById('pwa-install-btn');
-    const pwaToast = document.getElementById('pwa-toast');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        // Prevent default browser prompt
-        e.preventDefault();
-        deferredPrompt = e;
-        // Show our custom install button
-        if (pwaBtn) pwaBtn.style.display = 'flex';
-    });
-
-    if (pwaBtn) {
-        pwaBtn.addEventListener('click', (e) => {
-            pwaBtn.style.display = 'none';
-            // Trigger the actual prompt
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('Install accepted');
-                        showPwaToast("Thank you for installing Aaysha's Portfolio! 🌟");
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        });
-    }
-
-    window.addEventListener('appinstalled', (evt) => {
-        console.log('App installed');
-        showPwaToast("App installed successfully! Welcome aboard. 🚀");
-    });
-
-    function showPwaToast(message) {
-        if (!pwaToast) return;
-        pwaToast.textContent = message;
-        pwaToast.classList.add('show');
-        setTimeout(() => {
-            pwaToast.classList.remove('show');
-        }, 3000);
-    }
-
-    // Register Service Worker
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js') // Ensure correct path
-                .then(registration => {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                })
-                .catch(err => {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-        });
+        localStorage.setItem('sw-cleared', '1');
     }
 
 });
 
+// Global function to open document modal
+window.openDocModal = function (docUrl, title) {
+    const modal = document.getElementById('doc-modal');
+    const iframe = document.getElementById('modal-iframe');
+    const titleEl = document.getElementById('modal-title');
+    const downloadBtn = document.getElementById('modal-download-btn');
+
+    if (modal && iframe) {
+        lastFocusedElement = document.activeElement;
+        iframe.src = docUrl;
+        titleEl.textContent = title;
+        downloadBtn.href = docUrl;
+
+        // Force the download attribute to use the actual filename
+        const fileName = docUrl.split('/').pop();
+        downloadBtn.setAttribute('download', fileName);
+
+        // Override click to force download via blob for stubborn browsers
+        downloadBtn.onclick = function (e) {
+            e.preventDefault();
+
+            // Show brief loading state
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+
+            fetch(docUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    downloadBtn.innerHTML = originalText;
+                })
+                .catch(() => {
+                    // Fallback
+                    const a = document.createElement('a');
+                    a.href = docUrl;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    downloadBtn.innerHTML = originalText;
+                });
+        };
+
+        // Show modal and move focus into it
+        modal.style.display = 'flex';
+        setTimeout(() => {
+            modal.classList.add('show');
+            const closeBtn = modal.querySelector('.close-modal');
+            if (closeBtn) closeBtn.focus();
+        }, 10);
+    }
+};
+
+// Setup modal close handlers once DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('doc-modal');
+    const closeBtn = document.querySelector('.close-modal');
+
+    function closeModal() {
+        modal.classList.remove('show');
+        // Wait for transition to finish before hiding completely
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.getElementById('modal-iframe').src = ''; // Clear iframe to stop loading
+        }, 300);
+        if (lastFocusedElement) lastFocusedElement.focus();
+    }
+
+    if (modal && closeBtn) {
+        // Close on X button click
+        closeBtn.addEventListener('click', closeModal);
+
+        // Close on background click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Keyboard support: Escape closes, Tab stays within the dialog
+        document.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('show')) return;
+            if (e.key === 'Escape') {
+                closeModal();
+            } else if (e.key === 'Tab') {
+                trapFocus(e, modal.querySelector('.modal-content'));
+            }
+        });
+    }
+
+    // Back to top button logic
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: scrollBehavior()
+            });
+        });
+    }
+
+    // --- Digital Business Card Modal ---
+    const logoBtn = document.getElementById('logo-btn');
+    const bizModal = document.getElementById('biz-card-modal');
+    const closeBizCard = document.querySelector('.close-biz-card');
+
+    if (logoBtn && bizModal) {
+        // Open on logo click
+        logoBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            lastFocusedElement = document.activeElement;
+            bizModal.style.display = 'flex';
+            // Small delay for CSS transition to kick in
+            setTimeout(() => {
+                bizModal.classList.add('show');
+                if (closeBizCard) closeBizCard.focus();
+            }, 10);
+        });
+
+        // Close on X button
+        if (closeBizCard) {
+            closeBizCard.addEventListener('click', () => {
+                closeBizModal();
+            });
+        }
+
+        // Close on backdrop click
+        bizModal.addEventListener('click', (e) => {
+            if (e.target === bizModal) {
+                closeBizModal();
+            }
+        });
+
+        // Keyboard support: Escape closes, Tab stays within the dialog
+        document.addEventListener('keydown', (e) => {
+            if (!bizModal.classList.contains('show')) return;
+            if (e.key === 'Escape') {
+                closeBizModal();
+            } else if (e.key === 'Tab') {
+                trapFocus(e, bizModal.querySelector('.biz-card-content'));
+            }
+        });
+
+        function closeBizModal() {
+            bizModal.classList.remove('show');
+            setTimeout(() => {
+                bizModal.style.display = 'none';
+            }, 300);
+            if (lastFocusedElement) lastFocusedElement.focus();
+        }
+    }
+});

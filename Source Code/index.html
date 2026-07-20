@@ -2,10 +2,8 @@
 <html lang="en">
 
 <head>
-    <!-- 
-    Author: Amey Thakur
-    GitHub: https://github.com/amey-thakur
-    Date: 2026-02-17
+    <!--
+    Portfolio Website for Aaysha Ali
     License: MIT
     Description: Main HTML structure for Aaysha Ali's Portfolio.
     -->
@@ -15,22 +13,23 @@
         content="Bachelor of Pharmacy student at Jamia Hamdard specializing in clinical research, molecular docking, HPLC analysis, and medical writing.">
     <meta name="keywords" content="Aaysha Ali, Jamia Hamdard, Pharmacy, Molecular Docking, HPLC, Clinical Research, Medical Writing, Portfolio">
     <meta name="author" content="Aaysha Ali">
+    <meta name="theme-color" content="#0d9488">
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Social Sharing Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://aaysha16.github.io/">
-    <meta property="og:title" content="Aaysha Ali | Portfolio Website">
+    <meta property="og:title" content="Aaysha Ali - Portfolio">
     <meta property="og:description" content="Bachelor of Pharmacy student at Jamia Hamdard specializing in clinical research, molecular docking, HPLC analysis, and medical writing.">
     <meta property="og:image" content="https://aaysha16.github.io/assets/img/profile.png">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://aaysha16.github.io/">
-    <meta property="twitter:title" content="Aaysha Ali | Portfolio Website">
-    <meta property="twitter:description" content="Bachelor of Pharmacy student at Jamia Hamdard specializing in clinical research, molecular docking, HPLC analysis, and medical writing.">
-    <meta property="twitter:image" content="https://aaysha16.github.io/assets/img/profile.png">
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://aaysha16.github.io/">
+    <meta name="twitter:title" content="Aaysha Ali - Portfolio">
+    <meta name="twitter:description" content="Bachelor of Pharmacy student at Jamia Hamdard specializing in clinical research, molecular docking, HPLC analysis, and medical writing.">
+    <meta name="twitter:image" content="https://aaysha16.github.io/assets/img/profile.png">
 
-    <title>Aaysha Ali | Portfolio Website</title>
+    <title>Aaysha Ali</title>
     <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 
     <!-- Google Fonts -->
@@ -46,30 +45,30 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0d9488">
 </head>
 
 <body>
 
+    <!-- Restore saved theme before first paint to avoid a flash of the light theme -->
+    <script>if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-theme');</script>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">Aaysha Ali<span class="dot">.</span></a>
-            <div class="hamburger">
+            <a href="javascript:void(0)" class="logo" id="logo-btn">Aaysha Ali<span class="dot">.</span></a>
+            <button class="hamburger" id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links-menu">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#about" data-target="about">About</a></li>
-                <li><a href="#education" data-target="education">Education</a></li>
-                <li><a href="#research" data-target="research">Research</a></li>
-                <li><a href="#skills" data-target="skills">Skills</a></li>
-                <li><a href="#credentials" data-target="credentials">Credentials</a></li>
-                <li><a href="#interests" data-target="interests">Interests</a></li>
-                <li><a href="#contact" data-target="contact" class="btn-nav">Contact</a></li>
+            </button>
+            <ul class="nav-links" id="nav-links-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#credentials">Certificates</a></li>
+                <li><a href="#interests">Interests</a></li>
+                <li><a href="#contact" class="btn-nav">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -78,28 +77,25 @@
     <header id="hero" class="hero-section">
         <div class="container hero-content">
             <div class="hero-text fade-in-up">
-                <p class="subtitle">Pharmacy & Informatics</p>
+                <p class="subtitle">Pharmacy &amp; Informatics</p>
                 <h1>Science meets <br> <span class="highlight">Artistry</span></h1>
                 <p class="description">
-                    Blending clinical precision with creative insight.
-                    Merging the analytical world of <strong>Pharmacy</strong> with the innovative realm of
-                    <strong>Informatics</strong>.
+                    Blending clinical precision with creative insight. Merging the analytical world of
+                    <strong>Pharmacy</strong> with the innovative realm of <strong>Informatics</strong>.
                 </p>
                 <div class="cta-group">
                     <a href="#contact" class="btn btn-primary">Get in Touch</a>
-                    <a href="https://github.com/aaysha16/Resume/releases/latest/download/Aaysha_Ali_Resume.pdf" class="btn btn-secondary"><i class="fas fa-download"></i>
-                        Download Resume</a>
+                    <a href="https://github.com/aaysha16/Resume/releases/latest/download/Aaysha_Ali_Resume.pdf" class="btn btn-secondary"><i class="fas fa-download"></i> Download Resume</a>
                 </div>
             </div>
             <div class="hero-visual fade-in-delay">
                 <div class="circle-graphic"></div>
-                <!-- Visual anchor for cinematic overlays -->
             </div>
         </div>
     </header>
 
     <!-- Scroll Down Mouse Indicator -->
-    <a href="#about" class="scroll-down">
+    <a href="#about" class="scroll-down" aria-label="Scroll to About section">
         <div class="mouse">
             <div class="wheel"></div>
         </div>
@@ -115,7 +111,7 @@
         <div class="container about-grid">
             <div class="about-image reveal-left">
                 <div class="img-wrapper">
-                    <img src="assets/img/profile.png" alt="Aaysha Ali">
+                    <img src="assets/img/profile.png" alt="Aaysha Ali" style="object-fit: cover;">
                     <div class="img-overlay"></div>
                 </div>
             </div>
@@ -123,7 +119,7 @@
                 <h2 class="section-title">About Me</h2>
                 <div class="bio">
                     <p class="lead">
-                        I am a detail-oriented and research-driven <strong>Bachelor of Pharmacy</strong> student at Jamia Hamdard with a strong foundation in pharmaceutical sciences and scientific communication.
+                        I am a detail-oriented and research-driven <strong>Bachelor of Pharmacy</strong> student at Jamia Hamdard, New Delhi, with a strong foundation in pharmaceutical sciences and scientific communication.
                     </p>
                     <p>
                         My academic journey is fueled by a commitment to clinical research and digital health. I specialize in computational methods like molecular docking and analytical techniques such as HPLC. I enjoy translating complex clinical data and scientific concepts into clear, accessible information for healthcare professionals and patients alike.
@@ -142,31 +138,27 @@
         </div>
     </section>
 
-    <!-- Education & Awards Section -->
+    <!-- Education Section -->
     <section id="education" class="section education-section">
         <div class="container">
             <h2 class="section-title text-center reveal-up">Academic Foundation</h2>
 
             <div class="timeline">
-                <!-- Education Item -->
                 <div class="timeline-item reveal-up">
                     <div class="timeline-date">Aug 2024 – Present</div>
                     <div class="timeline-content card-glass">
                         <h3>Bachelor of Pharmacy (B.Pharm)</h3>
                         <h4>Jamia Hamdard, New Delhi</h4>
-                        <p>Second-Year Undergraduate in Pharmaceutical Sciences.</p>
+                        <p>Undergraduate in Pharmaceutical Sciences. Coursework spanning pharmaceutical chemistry, pharmacology, pharmaceutics, and analytical techniques, with a growing focus on clinical research and computational drug discovery.</p>
                     </div>
                 </div>
 
-                <!-- Scholarship Item -->
                 <div class="timeline-item reveal-up">
                     <div class="timeline-date">May 2025 – Present</div>
                     <div class="timeline-content card-glass">
                         <h3>Merit-cum-Need Based Scholarship</h3>
                         <h4>Smile Foundation</h4>
-                        <p>Awarded by a pharmaceutical company. Retention contingent upon achieving <strong
-                                class="text-accent">distinction in each academic semester</strong>, which has been
-                            consistently maintained.</p>
+                        <p>Awarded a merit-based scholarship with retention contingent upon achieving <strong class="text-accent">distinction in each academic semester</strong>, which has been consistently maintained.</p>
                     </div>
                 </div>
             </div>
@@ -176,8 +168,9 @@
     <!-- Research Section -->
     <section id="research" class="section research-section">
         <div class="container">
-            <h2 class="section-title text-center reveal-up">Research & Presentations</h2>
+            <h2 class="section-title text-center reveal-up">Research &amp; Presentations</h2>
             <div class="research-grid">
+
                 <div class="card-research reveal-up">
                     <div class="card-header">
                         <i class="fas fa-microscope icon-bg"></i>
@@ -185,71 +178,99 @@
                         <span class="badge">SECON 2025</span>
                     </div>
                     <div class="card-body">
-                        <p>Designed and presented a review poster at <strong>SECON 2025 (Student Conference on Emerging
-                                Sciences)</strong>, an international academic conference held at Jamia Hamdard, New
-                            Delhi.</p>
+                        <p>Designed and presented a review poster at <strong>SECON 2025</strong> (Student Conference on Emerging Sciences), an international academic conference held at Jamia Hamdard, New Delhi.</p>
                         <ul class="d-list">
                             <li><i class="fas fa-check"></i> Presented review-based work at an international level.</li>
-                            <li><i class="fas fa-check"></i> Collaborated effectively in academic settings.</li>
-                            <li><i class="fas fa-check"></i> Engagement with technical material.</li>
+                            <li><i class="fas fa-check"></i> Collaborated effectively in an academic research setting.</li>
+                            <li><i class="fas fa-check"></i> Engaged with technical and peer-reviewed material.</li>
                         </ul>
                     </div>
                 </div>
+
+                <div class="card-research reveal-up">
+                    <div class="card-header">
+                        <i class="fas fa-atom icon-bg"></i>
+                        <h3>Molecular Docking Study</h3>
+                        <span class="badge">Computational</span>
+                    </div>
+                    <div class="card-body">
+                        <p>Applied structure-based computational methods to explore ligand–protein binding, translating theory into hands-on docking workflows.</p>
+                        <ul class="d-list">
+                            <li><i class="fas fa-check"></i> AutoDock / Vina based pose prediction.</li>
+                            <li><i class="fas fa-check"></i> Visualization in PyMOL &amp; Discovery Studio.</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="section skills-section">
+    <section id="skills" class="section">
         <div class="container">
-            <h2 class="section-title text-center reveal-up">Capabilities</h2>
-            <div class="skills-wrapper reveal-up">
+            <div class="section-title text-center reveal-up">
+                <h2>Capabilities</h2>
+                <div class="title-underline"></div>
+            </div>
 
-                <div class="skill-category">
-                    <h3>Laboratory & Computational</h3>
-                    <div class="skill-cloud">
-                        <span class="skill-pill">HPLC</span>
-                        <span class="skill-pill">Molecular Docking</span>
-                        <span class="skill-pill">AutoDock / Vina</span>
-                        <span class="skill-pill">PyMOL</span>
-                        <span class="skill-pill">Discovery Studio</span>
-                        <span class="skill-pill">UV-Vis Spectroscopy</span>
+            <div class="skills-grid">
+                <div class="skill-category card-glass reveal-up">
+                    <div class="skill-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Laboratory &amp; Computational</h3>
+                    <div class="skill-tags">
+                        <span>HPLC</span>
+                        <span>Molecular Docking</span>
+                        <span>AutoDock / Vina</span>
+                        <span>PyMOL</span>
+                        <span>Discovery Studio</span>
+                        <span>UV-Vis Spectroscopy</span>
                     </div>
                 </div>
 
-                <div class="skill-category">
-                    <h3>Research & Methodology</h3>
-                    <div class="skill-cloud">
-                        <span class="skill-pill">Good Clinical Practice (GCP)</span>
-                        <span class="skill-pill">Literature Review & Synthesis</span>
-                        <span class="skill-pill">Scientific Writing</span>
-                        <span class="skill-pill">PubMed & ScienceDirect</span>
-                        <span class="skill-pill">Data Interpretation</span>
+                <div class="skill-category card-glass reveal-up" style="transition-delay: 0.1s;">
+                    <div class="skill-icon">
+                        <i class="fas fa-magnifying-glass-chart"></i>
+                    </div>
+                    <h3>Research &amp; Methodology</h3>
+                    <div class="skill-tags">
+                        <span>Good Clinical Practice</span>
+                        <span>Literature Review</span>
+                        <span>Scientific Writing</span>
+                        <span>PubMed &amp; ScienceDirect</span>
+                        <span>Data Interpretation</span>
                     </div>
                 </div>
 
-                <div class="skill-category">
-                    <h3>Tools & Software</h3>
-                    <div class="skill-cloud">
-                        <span class="skill-pill">Mendeley</span>
-                        <span class="skill-pill">ChemDraw</span>
-                        <span class="skill-pill">GraphPad Prism</span>
-                        <span class="skill-pill">Python</span>
-                        <span class="skill-pill">Microsoft Office</span>
-                        <span class="skill-pill">Canva</span>
+                <div class="skill-category card-glass reveal-up" style="transition-delay: 0.2s;">
+                    <div class="skill-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Tools &amp; Software</h3>
+                    <div class="skill-tags">
+                        <span>Mendeley</span>
+                        <span>ChemDraw</span>
+                        <span>GraphPad Prism</span>
+                        <span>Python</span>
+                        <span>Microsoft Office</span>
+                        <span>Canva</span>
                     </div>
                 </div>
 
-                <div class="skill-category">
-                    <h3>Soft Skills</h3>
-                    <div class="skill-cloud">
-                        <span class="skill-pill">Time Management</span>
-                        <span class="skill-pill">Team Collaboration</span>
-                        <span class="skill-pill">Critical Thinking</span>
-                        <span class="skill-pill">Creative Problem Solving</span>
+                <div class="skill-category card-glass reveal-up" style="transition-delay: 0.3s;">
+                    <div class="skill-icon">
+                        <i class="fas fa-people-group"></i>
+                    </div>
+                    <h3>Professional Skills</h3>
+                    <div class="skill-tags">
+                        <span>Time Management</span>
+                        <span>Team Collaboration</span>
+                        <span>Critical Thinking</span>
+                        <span>Creative Problem Solving</span>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -257,7 +278,7 @@
     <!-- Credentials Section -->
     <section id="credentials" class="section credentials-section">
         <div class="container">
-            <h2 class="section-title text-center reveal-up">Credentials</h2>
+            <h2 class="section-title text-center reveal-up">Certifications &amp; Credentials</h2>
 
             <!-- Resume Sub-Area -->
             <div class="resume-cta reveal-up">
@@ -268,53 +289,117 @@
                     </div>
                     <div class="resume-cta-actions">
                         <a href="https://github.com/aaysha16/Resume/releases/latest/download/Aaysha_Ali_Resume.pdf" class="btn btn-primary"><i class="fas fa-download"></i> Download Resume</a>
-                        <a href="https://github.com/aaysha16/Resume" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> View Source</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Certificates Sub-Area -->
+            <!-- Certificates Sub-Area (direct view / download) -->
             <div class="credentials-grid">
                 <div class="credential-card card-glass reveal-up">
-                    <div class="credential-icon">
-                        <i class="fas fa-flask"></i>
+                    <div class="credential-icon"><i class="fas fa-certificate"></i></div>
+                    <h3>Good Clinical Practice (GCP)</h3>
+                    <p>NIDA Clinical Trials Network</p>
+                    <div class="doc-actions">
+                        <button type="button" onclick="openDocModal('assets/docs/Good_Clinical_Practice_GCP.pdf', 'Good Clinical Practice (GCP)')" aria-label="View Good Clinical Practice certificate" title="View Certificate"><i class="fas fa-eye"></i></button>
+                        <a href="assets/docs/Good_Clinical_Practice_GCP.pdf" download aria-label="Download Good Clinical Practice certificate (PDF)" title="Download Certificate"><i class="fas fa-download"></i></a>
                     </div>
-                    <h3>Clinical & Research</h3>
-                    <ul class="credential-list">
-                        <li>Good Clinical Practice (GCP)</li>
-                        <li>Molecular Docking Workshop</li>
-                        <li>HPLC Hands-on Training</li>
-                    </ul>
                 </div>
 
                 <div class="credential-card card-glass reveal-up">
-                    <div class="credential-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
+                    <div class="credential-icon"><i class="fas fa-atom"></i></div>
+                    <h3>Molecular Docking: Theory to Application</h3>
+                    <p>Discovery Boulevard</p>
+                    <div class="doc-actions">
+                        <button type="button" onclick="openDocModal('assets/docs/Molecular_Docking_Workshop.pdf', 'Molecular Docking Workshop')" aria-label="View Molecular Docking certificate" title="View Certificate"><i class="fas fa-eye"></i></button>
+                        <a href="assets/docs/Molecular_Docking_Workshop.pdf" download aria-label="Download Molecular Docking certificate (PDF)" title="Download Certificate"><i class="fas fa-download"></i></a>
                     </div>
-                    <h3>Conferences & Presentations</h3>
-                    <ul class="credential-list">
-                        <li>SECON 2025 Poster Presenter</li>
-                        <li>SECON 2025 Delegate</li>
-                        <li>Unani Aahar Article Writing</li>
-                    </ul>
                 </div>
 
                 <div class="credential-card card-glass reveal-up">
-                    <div class="credential-icon">
-                        <i class="fas fa-hands-helping"></i>
+                    <div class="credential-icon"><i class="fas fa-flask"></i></div>
+                    <h3>HPLC Industrial Visit &amp; Hands-on Training</h3>
+                    <p>Arbro Pharmaceuticals</p>
+                    <div class="doc-actions">
+                        <button type="button" onclick="openDocModal('assets/docs/HPLC_Industrial_Visit_Training.jpeg', 'HPLC Industrial Visit &amp; Training')" aria-label="View HPLC training certificate" title="View Certificate"><i class="fas fa-eye"></i></button>
+                        <a href="assets/docs/HPLC_Industrial_Visit_Training.jpeg" download aria-label="Download HPLC training certificate (image)" title="Download Certificate"><i class="fas fa-download"></i></a>
                     </div>
-                    <h3>Volunteering & Leadership</h3>
-                    <ul class="credential-list">
-                        <li>World Pharmacists Day</li>
-                        <li>Snow Frost Hackathon</li>
-                        <li>Miyawaki Forest Plantation</li>
-                    </ul>
+                </div>
+
+                <div class="credential-card card-glass reveal-up">
+                    <div class="credential-icon"><i class="fas fa-award"></i></div>
+                    <h3>SECON 2025 — Poster Presenter</h3>
+                    <p>Society for Ethnopharmacology (India)</p>
+                    <div class="doc-actions">
+                        <button type="button" onclick="openDocModal('assets/docs/SECON2025_Poster_Presenter.jpeg', 'SECON 2025 — Poster Presenter')" aria-label="View SECON 2025 poster presenter certificate" title="View Certificate"><i class="fas fa-eye"></i></button>
+                        <a href="assets/docs/SECON2025_Poster_Presenter.jpeg" download aria-label="Download SECON 2025 poster presenter certificate (image)" title="Download Certificate"><i class="fas fa-download"></i></a>
+                    </div>
+                </div>
+
+                <div class="credential-card card-glass reveal-up">
+                    <div class="credential-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h3>SECON 2025 — Delegate</h3>
+                    <p>Society for Ethnopharmacology (India)</p>
+                    <div class="doc-actions">
+                        <button type="button" onclick="openDocModal('assets/docs/SECON2025_Delegate.jpeg', 'SECON 2025 — Delegate')" aria-label="View SECON 2025 delegate certificate" title="View Certificate"><i class="fas fa-eye"></i></button>
+                        <a href="assets/docs/SECON2025_Delegate.jpeg" download aria-label="Download SECON 2025 delegate certificate (image)" title="Download Certificate"><i class="fas fa-download"></i></a>
+                    </div>
+                </div>
+
+                <div class="credential-card card-glass reveal-up">
+                    <div class="credential-icon"><i class="fas fa-hands-helping"></i></div>
+                    <h3>SECON 2025 — Volunteer Appreciation</h3>
+                    <p>Society for Ethnopharmacology (India)</p>
+                    <div class="doc-actions">
+                        <button type="button" onclick="openDocModal('assets/docs/SECON2025_Volunteer.jpeg', 'SECON 2025 — Volunteer Appreciation')" aria-label="View SECON 2025 volunteer certificate" title="View Certificate"><i class="fas fa-eye"></i></button>
+                        <a href="assets/docs/SECON2025_Volunteer.jpeg" download aria-label="Download SECON 2025 volunteer certificate (image)" title="Download Certificate"><i class="fas fa-download"></i></a>
+                    </div>
+                </div>
+
+                <div class="credential-card card-glass reveal-up">
+                    <div class="credential-icon"><i class="fas fa-pen-nib"></i></div>
+                    <h3>Unani Aahar — Article Writing</h3>
+                    <p>Jamia Hamdard (CoEUM)</p>
+                    <div class="doc-actions">
+                        <button type="button" onclick="openDocModal('assets/docs/Unani_Aahar_Article_Writing.jpeg', 'Unani Aahar — Article Writing')" aria-label="View Unani Aahar article writing certificate" title="View Certificate"><i class="fas fa-eye"></i></button>
+                        <a href="assets/docs/Unani_Aahar_Article_Writing.jpeg" download aria-label="Download Unani Aahar article writing certificate (image)" title="Download Certificate"><i class="fas fa-download"></i></a>
+                    </div>
+                </div>
+
+                <div class="credential-card card-glass reveal-up">
+                    <div class="credential-icon"><i class="fas fa-pills"></i></div>
+                    <h3>World Pharmacists Day — Volunteer</h3>
+                    <p>Jamia Hamdard (SPER Pharmakon)</p>
+                    <div class="doc-actions">
+                        <button type="button" onclick="openDocModal('assets/docs/World_Pharmacists_Day_Volunteer.jpeg', 'World Pharmacists Day — Volunteer')" aria-label="View World Pharmacists Day volunteer certificate" title="View Certificate"><i class="fas fa-eye"></i></button>
+                        <a href="assets/docs/World_Pharmacists_Day_Volunteer.jpeg" download aria-label="Download World Pharmacists Day volunteer certificate (image)" title="Download Certificate"><i class="fas fa-download"></i></a>
+                    </div>
+                </div>
+
+                <div class="credential-card card-glass reveal-up">
+                    <div class="credential-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Snow Frost Hackathon — Volunteer</h3>
+                    <p>Spark Tech AI Hub</p>
+                    <div class="doc-actions">
+                        <button type="button" onclick="openDocModal('assets/docs/Snow_Frost_Hackathon_Volunteer.jpeg', 'Snow Frost Hackathon — Volunteer')" aria-label="View Snow Frost Hackathon volunteer certificate" title="View Certificate"><i class="fas fa-eye"></i></button>
+                        <a href="assets/docs/Snow_Frost_Hackathon_Volunteer.jpeg" download aria-label="Download Snow Frost Hackathon volunteer certificate (image)" title="Download Certificate"><i class="fas fa-download"></i></a>
+                    </div>
+                </div>
+
+                <div class="credential-card card-glass reveal-up">
+                    <div class="credential-icon"><i class="fas fa-tree"></i></div>
+                    <h3>Miyawaki Forest Plantation Drive</h3>
+                    <p>Cosmo Foundation</p>
+                    <div class="doc-actions">
+                        <button type="button" onclick="openDocModal('assets/docs/Miyawaki_Forest_Plantation_Drive.jpeg', 'Miyawaki Forest Plantation Drive')" aria-label="View Miyawaki Forest plantation certificate" title="View Certificate"><i class="fas fa-eye"></i></button>
+                        <a href="assets/docs/Miyawaki_Forest_Plantation_Drive.jpeg" download aria-label="Download Miyawaki Forest plantation certificate (image)" title="Download Certificate"><i class="fas fa-download"></i></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="text-center reveal-up" style="margin-top: 2.5rem;">
-                <a href="https://github.com/aaysha16/Certificates" target="_blank" class="btn btn-primary"><i class="fas fa-certificate"></i> View All Certificates</a>
-            </div>
+            <p class="text-center reveal-up" style="margin-top: 2.5rem; color: var(--light-text); font-size: 0.95rem;">
+                Browse the complete archive on
+                <a href="https://github.com/aaysha16/Certificates" target="_blank" rel="noopener" style="color: var(--accent-color); font-weight: 500;">GitHub <i class="fab fa-github"></i></a>.
+            </p>
         </div>
     </section>
 
@@ -325,7 +410,7 @@
             <div class="interests-grid text-center reveal-up">
                 <div class="interest-item">
                     <i class="fas fa-feather-alt"></i>
-                    <h3>Poetry & Reflective Writing</h3>
+                    <h3>Poetry &amp; Reflective Writing</h3>
                 </div>
                 <div class="interest-item">
                     <i class="fas fa-utensils"></i>
@@ -345,8 +430,7 @@
             <div class="contact-wrapper card-glass reveal-up">
                 <div class="contact-info">
                     <h2>Let's Collaborate</h2>
-                    <p>I am seeking internship or entry-level training opportunities across pharmaceutical, laboratory,
-                        or allied professional environments.</p>
+                    <p>I am seeking internship or entry-level training opportunities across pharmaceutical, laboratory, or allied professional environments. Whether you have an opportunity or simply want to say hello, my inbox is always open!</p>
 
                     <div class="contact-details">
                         <div class="detail-item">
@@ -361,20 +445,15 @@
                             <i class="fas fa-phone"></i>
                             <a href="tel:+918851618910">+91 8851618910</a>
                         </div>
-                        <div class="social-links">
-                            <a href="https://linkedin.com/in/aayshaali" target="_blank" aria-label="LinkedIn"><i
-                                    class="fab fa-linkedin-in"></i></a>
-                            <a href="https://orcid.org/0009-0005-5832-6542" target="_blank" aria-label="ORCID"><i
-                                    class="fab fa-orcid"></i></a>
-                            <a href="https://www.instagram.com/_aaysha16_" target="_blank" aria-label="Instagram"><i
-                                    class="fab fa-instagram"></i></a>
+                        <div class="detail-item" style="display: flex; gap: 1.5rem; justify-content: flex-start; margin-top: 1rem; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 1.5rem;">
+                            <a href="https://linkedin.com/in/aayshaali" target="_blank" rel="noopener" aria-label="LinkedIn profile" title="LinkedIn" style="color: var(--accent-color); font-size: 1.8rem; transition: transform 0.3s ease;"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://orcid.org/0009-0005-5832-6542" target="_blank" rel="noopener" aria-label="ORCID profile" title="ORCID" style="color: var(--accent-color); font-size: 1.8rem; transition: transform 0.3s ease;"><i class="fab fa-orcid"></i></a>
+                            <a href="https://www.instagram.com/_aaysha16_" target="_blank" rel="noopener" aria-label="Instagram profile" title="Instagram" style="color: var(--accent-color); font-size: 1.8rem; transition: transform 0.3s ease;"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Formspree Endpoint Configuration -->
-                <form action="https://formspree.io/f/xlgwnord" method="POST" class="contact-form" autocomplete="off"
-                    id="contact-form">
+                <form action="https://formspree.io/f/xlgwnord" method="POST" class="contact-form" autocomplete="off" id="contact-form">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" placeholder="Your Name" required>
@@ -385,8 +464,7 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Hi Aaysha, I'd like to discuss..."
-                            required></textarea>
+                        <textarea id="message" name="message" rows="5" placeholder="Hi Aaysha, I'd like to discuss..." required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
@@ -402,9 +480,52 @@
         </div>
     </footer>
 
-    <!-- PWA Install Button -->
-    <button id="pwa-install-btn" class="pwa-install-btn">
-        <i class="fas fa-download"></i> Install App
+    <!-- Digital Business Card Modal -->
+    <div id="biz-card-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="biz-card-name">
+        <div class="biz-card-content card-glass">
+            <button type="button" class="close-biz-card" aria-label="Close">&times;</button>
+            <div class="biz-card-photo">
+                <img src="assets/img/profile.png" alt="Aaysha Ali">
+            </div>
+            <h2 class="biz-card-name" id="biz-card-name">Aaysha Ali</h2>
+            <p class="biz-card-title">B.Pharm · Clinical Research &amp; Informatics</p>
+            <p class="biz-card-pitch">Pharmacy student blending clinical precision with computational insight — molecular docking, HPLC analysis, and scientific writing for research and digital health.</p>
+            <div class="biz-card-actions">
+                <a href="mailto:aliaaysha27@gmail.com" class="biz-card-btn">
+                    <i class="fas fa-envelope"></i> Email Me
+                </a>
+                <a href="https://linkedin.com/in/aayshaali" target="_blank" rel="noopener" class="biz-card-btn biz-card-btn-accent">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://github.com/aaysha16/Resume/releases/latest/download/Aaysha_Ali_Resume.pdf" class="biz-card-btn">
+                    <i class="fas fa-download"></i> Resume
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Document Modal -->
+    <div id="doc-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content card-glass">
+            <button class="close-modal" aria-label="Close document preview">&times;</button>
+            <h3 id="modal-title" class="mb-3">Document Preview</h3>
+            <div class="modal-body">
+                <iframe id="modal-iframe" title="Document preview" src="" width="100%" height="500px" style="border:none; border-radius: 8px;"></iframe>
+            </div>
+            <div class="modal-footer mt-4 text-center">
+                <a id="modal-download-btn" href="#" download class="btn btn-primary"><i class="fas fa-download"></i> Download Document</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark theme" title="Toggle theme">
+        <i class="fas fa-moon"></i>
     </button>
 
     <!-- Background Audio -->
@@ -414,13 +535,9 @@
     </audio>
 
     <!-- Music Control Button -->
-    <button id="music-btn" class="music-btn" aria-label="Toggle Music">
+    <button id="music-btn" class="music-btn" aria-label="Toggle background music" title="Toggle music">
         <i class="fas fa-music"></i>
     </button>
-
-    <!-- PWA Toast Message -->
-    <div id="pwa-toast" class="pwa-toast">Aaysha's Portfolio installed successfully!</div>
-
 
     <!-- Scripts -->
     <script src="assets/js/main.js"></script>
