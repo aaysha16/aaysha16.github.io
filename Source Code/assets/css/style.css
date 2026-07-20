@@ -2299,6 +2299,11 @@ footer {
     z-index: 10;
 }
 
+/* Reserve space so card titles never run under the icons */
+.timeline-content .doc-actions~h3 {
+    padding-right: 100px;
+}
+
 /* Center at bottom for Credentials only */
 .credential-card .doc-actions {
     position: static;
